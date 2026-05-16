@@ -271,6 +271,57 @@
     </div>
   </div>
 
+  <!-- MINI-GAME OVERLAY -->
+  <div id="minigameOverlay" class="overlay hidden">
+    <!-- TAP RACE -->
+    <div id="mg-tap-race" class="mg-panel hidden">
+      <div class="mg-header">
+        <div class="mg-title" id="mgTapTitle">TAP RACE</div>
+        <div class="mg-timer-display" id="mgTapTimer">5</div>
+      </div>
+      <div class="mg-countdown hidden" id="mgTapCountdown">3</div>
+      <div class="tap-zones">
+        <button class="tap-zone tap-zone-italian" id="tapZoneItalian" disabled>
+          <span class="tap-zone-name" id="tapNameItalian">Romeo</span>
+          <span class="tap-zone-count" id="tapCountItalian">0</span>
+          <span class="tap-zone-label">taps</span>
+        </button>
+        <button class="tap-zone tap-zone-irish" id="tapZoneIrish" disabled>
+          <span class="tap-zone-name" id="tapNameIrish">Aoife</span>
+          <span class="tap-zone-count" id="tapCountIrish">0</span>
+          <span class="tap-zone-label">taps</span>
+        </button>
+      </div>
+      <div class="mg-result hidden" id="mgTapResult"></div>
+      <button class="btn-primary hidden" id="mgTapDone">Got it! Next card →</button>
+    </div>
+
+    <!-- STARE CONTEST -->
+    <div id="mg-stare" class="mg-panel hidden">
+      <div class="mg-title">STARE CONTEST 👀</div>
+      <div class="mg-sub">Look into each other's eyes.<br>First to look away — drinks.</div>
+      <div class="mg-stare-timer" id="mgStareTimer">0.0s</div>
+      <div class="stare-buttons">
+        <button class="stare-btn stare-btn-italian" id="stareItalian">🍷 <span id="stareNameItalian">Romeo</span> looked away</button>
+        <button class="stare-btn stare-btn-irish" id="stareIrish">🍺 <span id="stareNameIrish">Aoife</span> looked away</button>
+      </div>
+      <div class="mg-result hidden" id="mgStareResult"></div>
+      <button class="btn-primary hidden" id="mgStareDone">Got it! Next card →</button>
+    </div>
+
+    <!-- QUICK DRAW -->
+    <div id="mg-quick-draw" class="mg-panel hidden">
+      <div class="mg-title">QUICK DRAW 🔫</div>
+      <div class="mg-sub" id="mgDrawSub">Get your finger ready...</div>
+      <div class="mg-draw-zone" id="mgDrawZone">
+        <div class="draw-signal hidden" id="drawSignal">DRAW! 🔫</div>
+        <div class="draw-waiting" id="drawWaiting">⏳ Wait for it...</div>
+      </div>
+      <div class="mg-result hidden" id="mgDrawResult"></div>
+      <button class="btn-primary hidden" id="mgDrawDone">Got it! Next card →</button>
+    </div>
+  </div>
+
   <script src="game.js"></script>
 </body>
 </html>

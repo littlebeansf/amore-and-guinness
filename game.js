@@ -353,6 +353,10 @@ const CARDS = {
       timer: 60,
       drinkRule: 'Completely lost? {irish} takes 1 sip.',
     },
+
+    // MINI-GAMES
+    { type: 'wild', text: 'TAP RACE! 👆 First to 20 taps wins — loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
+    { type: 'wild', text: 'STARE CONTEST 👀 First to blink or look away — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
   ],
 
   // ── SPICY ZONE (rounds warmupEnd+1 → spicyEnd) ───────────
@@ -710,6 +714,10 @@ const CARDS = {
       sipsOpen: true,
       drinkRule: 'Adjust sips using the buttons below.',
     },
+
+    // MINI-GAMES
+    { type: 'wild', text: 'TAP RACE! 💥 Fastest fingers win — this one\'s personal. Loser drinks 3.', target: 'both', drinkRule: 'Loser drinks 3 sips.', minigame: 'tap_race', loser_drinks: 3 },
+    { type: 'wild', text: 'QUICK DRAW 🔫 When you see DRAW — first to tap wins. Loser drinks 2.', target: 'both', drinkRule: 'Slower finger drinks 2 sips.', minigame: 'quick_draw', loser_drinks: 2 },
   ],
 
   // ── EXTREME ZONE (rounds spicyEnd+1 → totalRounds) ────────
@@ -974,6 +982,10 @@ const CARDS = {
       target: 'both',
       drinkRule: 'No sips — just pure sincerity.',
     },
+
+    // MINI-GAMES
+    { type: 'wild', text: 'STARE CONTEST 🔥 No laughing. No looking away. Longest stare wins. Loser takes 3.', target: 'both', drinkRule: 'First to look away drinks 3 sips.', minigame: 'stare', loser_drinks: 3 },
+    { type: 'wild', text: 'QUICK DRAW 🔫 Extreme edition — zero mercy. Lose? Drink 3.', target: 'both', drinkRule: 'Slower tap drinks 3 sips.', minigame: 'quick_draw', loser_drinks: 3 },
   ],
 };
 
@@ -1191,6 +1203,307 @@ function startTimer(seconds) {
 }
 
 // ============================================================
+// MINI-GAME ENGINE
+// ============================================================
+
+let _mgStareInterval = null;
+
+function showMinigame(card) {
+  const overlay = document.getElementById('minigameOverlay');
+  // Hide all panels
+  ['mg-tap-race','mg-stare','mg-quick-draw'].forEach(id => {
+    document.getElementById(id).classList.add('hidden');
+  });
+  overlay.classList.remove('hidden');
+
+  if (card.minigame === 'tap_race') initTapRace(card);
+  else if (card.minigame === 'stare') initStare(card);
+  else if (card.minigame === 'quick_draw') initQuickDraw(card);
+}
+
+function closeMgAndAdvance() {
+  document.getElementById('minigameOverlay').classList.add('hidden');
+  advanceCard();
+}
+
+/* ── TAP RACE ── */
+function initTapRace(card) {
+  const panel = document.getElementById('mg-tap-race');
+  panel.classList.remove('hidden');
+
+  let italianTaps = 0, irishTaps = 0;
+  let raceActive = false;
+  const RACE_SECS = 5;
+  let remaining = RACE_SECS;
+
+  // Update names
+  document.getElementById('tapNameItalian').textContent = state.italianName;
+  document.getElementById('tapNameIrish').textContent   = state.irishName;
+  document.getElementById('tapCountItalian').textContent = '0';
+  document.getElementById('tapCountIrish').textContent   = '0';
+  document.getElementById('mgTapTimer').textContent = RACE_SECS;
+  document.getElementById('mgTapResult').classList.add('hidden');
+  document.getElementById('mgTapDone').classList.add('hidden');
+
+  const zoneIt  = document.getElementById('tapZoneItalian');
+  const zoneIr  = document.getElementById('tapZoneIrish');
+  const timerEl = document.getElementById('mgTapTimer');
+  const cntdEl  = document.getElementById('mgTapCountdown');
+  const resultEl= document.getElementById('mgTapResult');
+  const doneBtn = document.getElementById('mgTapDone');
+
+  zoneIt.disabled = true;
+  zoneIr.disabled = true;
+
+  // Countdown 3 2 1 GO
+  let count = 3;
+  cntdEl.textContent = count;
+  cntdEl.classList.remove('hidden');
+
+  const cntdInterval = setInterval(() => {
+    count--;
+    if (count <= 0) {
+      clearInterval(cntdInterval);
+      cntdEl.textContent = 'GO!';
+      setTimeout(() => {
+        cntdEl.classList.add('hidden');
+        zoneIt.disabled = false;
+        zoneIr.disabled = false;
+        raceActive = true;
+
+        const raceInterval = setInterval(() => {
+          remaining--;
+          timerEl.textContent = remaining;
+          if (remaining <= 0) {
+            clearInterval(raceInterval);
+            raceActive = false;
+            zoneIt.disabled = true;
+            zoneIr.disabled = true;
+            // Result
+            let msg, loser;
+            if (italianTaps > irishTaps) {
+              loser = 'irish';
+              msg = `${state.italianName} wins! ${italianTaps} vs ${irishTaps} taps — ${state.irishName} drinks ${card.loser_drinks || 2} sips! 🍺`;
+            } else if (irishTaps > italianTaps) {
+              loser = 'italian';
+              msg = `${state.irishName} wins! ${irishTaps} vs ${italianTaps} taps — ${state.italianName} drinks ${card.loser_drinks || 2} sips! 🍷`;
+            } else {
+              loser = 'both';
+              msg = `Dead tie — ${italianTaps} taps each! Both drink ${card.loser_drinks || 2} sips!`;
+            }
+            updateSips(loser, card.loser_drinks || 2);
+            resultEl.textContent = msg;
+            resultEl.classList.remove('hidden');
+            doneBtn.classList.remove('hidden');
+          }
+        }, 1000);
+      }, 600);
+    } else {
+      cntdEl.textContent = count;
+      // trigger re-animation
+      cntdEl.style.animation = 'none';
+      void cntdEl.offsetWidth;
+      cntdEl.style.animation = '';
+    }
+  }, 900);
+
+  zoneIt.onclick = () => {
+    if (!raceActive) return;
+    italianTaps++;
+    document.getElementById('tapCountItalian').textContent = italianTaps;
+  };
+  zoneIr.onclick = () => {
+    if (!raceActive) return;
+    irishTaps++;
+    document.getElementById('tapCountIrish').textContent = irishTaps;
+  };
+
+  doneBtn.onclick = closeMgAndAdvance;
+}
+
+/* ── STARE CONTEST ── */
+function initStare(card) {
+  const panel = document.getElementById('mg-stare');
+  panel.classList.remove('hidden');
+
+  document.getElementById('stareNameItalian').textContent = state.italianName;
+  document.getElementById('stareNameIrish').textContent   = state.irishName;
+  document.getElementById('mgStareTimer').textContent = '0.0s';
+  document.getElementById('mgStareResult').classList.add('hidden');
+  document.getElementById('mgStareDone').classList.add('hidden');
+
+  const btnIt   = document.getElementById('stareItalian');
+  const btnIr   = document.getElementById('stareIrish');
+  const timerEl = document.getElementById('mgStareTimer');
+  const resultEl= document.getElementById('mgStareResult');
+  const doneBtn = document.getElementById('mgStareDone');
+
+  let elapsed = 0;
+  let firstPress = null;
+  let done = false;
+
+  btnIt.disabled = false;
+  btnIr.disabled = false;
+
+  if (_mgStareInterval) clearInterval(_mgStareInterval);
+  _mgStareInterval = setInterval(() => {
+    elapsed += 100;
+    timerEl.textContent = (elapsed / 1000).toFixed(1) + 's';
+  }, 100);
+
+  function pressedBy(who) {
+    if (done) return;
+    if (!firstPress) {
+      firstPress = who;
+      btnIt.disabled = true;
+      btnIr.disabled = true;
+      // wait 400ms for simultaneous tap
+      setTimeout(() => {
+        clearInterval(_mgStareInterval);
+        done = true;
+        const drinkAmt = card.loser_drinks || 2;
+        let msg;
+        if (firstPress === 'italian') {
+          updateSips('italian', drinkAmt);
+          msg = `${state.italianName} looked away first — drinks ${drinkAmt} sips! They lasted ${(elapsed/1000).toFixed(1)}s 😂`;
+        } else {
+          updateSips('irish', drinkAmt);
+          msg = `${state.irishName} looked away first — drinks ${drinkAmt} sips! They lasted ${(elapsed/1000).toFixed(1)}s 😂`;
+        }
+        resultEl.textContent = msg;
+        resultEl.classList.remove('hidden');
+        doneBtn.classList.remove('hidden');
+      }, 400);
+    } else {
+      // second tap within 400ms = both drink
+      clearInterval(_mgStareInterval);
+      done = true;
+      const drinkAmt = card.loser_drinks || 2;
+      updateSips('both', drinkAmt);
+      const msg = `Simultaneous blink! You both looked away — both drink ${drinkAmt} sips! 👀`;
+      resultEl.textContent = msg;
+      resultEl.classList.remove('hidden');
+      doneBtn.classList.remove('hidden');
+    }
+  }
+
+  btnIt.onclick = () => pressedBy('italian');
+  btnIr.onclick = () => pressedBy('irish');
+  doneBtn.onclick = () => { clearInterval(_mgStareInterval); closeMgAndAdvance(); };
+}
+
+/* ── QUICK DRAW ── */
+function initQuickDraw(card) {
+  const panel = document.getElementById('mg-quick-draw');
+  panel.classList.remove('hidden');
+
+  const drawZone  = document.getElementById('mgDrawZone');
+  const subEl     = document.getElementById('mgDrawSub');
+  const resultEl  = document.getElementById('mgDrawResult');
+  const doneBtn   = document.getElementById('mgDrawDone');
+
+  resultEl.classList.add('hidden');
+  doneBtn.classList.add('hidden');
+  drawZone.classList.remove('active');
+  subEl.textContent = 'Hands ready! Tap your side the moment you see DRAW! 🔫';
+
+  let phase = 'waiting'; // 'waiting' | 'ready' | 'done'
+  let firstTapper  = null;
+  let firstTapTime = null;
+
+  // Replace drawZone contents with two half zones
+  drawZone.innerHTML = `
+    <button class="draw-half draw-half-italian" id="drawHalfItalian" disabled>
+      <span>🍷 ${state.italianName}</span>
+    </button>
+    <div class="draw-signal-center hidden" id="drawSignalCenter">DRAW! 🔫</div>
+    <button class="draw-half draw-half-irish" id="drawHalfIrish" disabled>
+      <span>🍺 ${state.irishName}</span>
+    </button>
+  `;
+
+  const halfIt = document.getElementById('drawHalfItalian');
+  const halfIr = document.getElementById('drawHalfIrish');
+  const centerSignal = document.getElementById('drawSignalCenter');
+
+  let tapDone = false;
+
+  const delay = 3000 + Math.random() * 4000;
+  const goTimeout = setTimeout(() => {
+    phase = 'ready';
+    centerSignal.classList.remove('hidden');
+    drawZone.classList.add('active');
+    halfIt.disabled = false;
+    halfIr.disabled = false;
+    firstTapTime = Date.now();
+  }, delay);
+
+  function playerTapped(who) {
+    if (phase !== 'ready' || tapDone) return;
+    if (!firstTapper) {
+      firstTapper = who;
+      // wait 200ms for simultaneous
+      setTimeout(() => {
+        if (tapDone) return;
+        tapDone = true;
+        halfIt.disabled = true;
+        halfIr.disabled = true;
+        const drinkAmt = card.loser_drinks || 2;
+        let msg, loser;
+        if (firstTapper === 'italian') {
+          loser = 'irish';
+          msg = `${state.italianName} was faster! ${state.irishName} drinks ${drinkAmt} sips! ⚡`;
+        } else {
+          loser = 'italian';
+          msg = `${state.irishName} was faster! ${state.italianName} drinks ${drinkAmt} sips! ⚡`;
+        }
+        updateSips(loser, drinkAmt);
+        resultEl.textContent = msg;
+        resultEl.classList.remove('hidden');
+        doneBtn.classList.remove('hidden');
+      }, 200);
+    } else {
+      // second tap within 200ms = photo finish
+      tapDone = true;
+      halfIt.disabled = true;
+      halfIr.disabled = true;
+      updateSips('both', 1);
+      resultEl.textContent = `Photo finish! Basically simultaneous — both drink 1 sip! 😅`;
+      resultEl.classList.remove('hidden');
+      doneBtn.classList.remove('hidden');
+    }
+  }
+
+  // False start detection
+  halfIt.addEventListener('mousedown', () => {
+    if (phase === 'waiting') {
+      clearTimeout(goTimeout);
+      tapDone = true;
+      phase = 'done';
+      updateSips('italian', 1);
+      resultEl.textContent = `${state.italianName} false-started! Drinks 1 sip.`;
+      resultEl.classList.remove('hidden');
+      doneBtn.classList.remove('hidden');
+    } else playerTapped('italian');
+  });
+  halfIr.addEventListener('mousedown', () => {
+    if (phase === 'waiting') {
+      clearTimeout(goTimeout);
+      tapDone = true;
+      phase = 'done';
+      updateSips('irish', 1);
+      resultEl.textContent = `${state.irishName} false-started! Drinks 1 sip.`;
+      resultEl.classList.remove('hidden');
+      doneBtn.classList.remove('hidden');
+    } else playerTapped('irish');
+  });
+  halfIt.addEventListener('touchstart', (e) => { e.preventDefault(); halfIt.dispatchEvent(new MouseEvent('mousedown')); }, { passive: false });
+  halfIr.addEventListener('touchstart', (e) => { e.preventDefault(); halfIr.dispatchEvent(new MouseEvent('mousedown')); }, { passive: false });
+
+  doneBtn.onclick = closeMgAndAdvance;
+}
+
+// ============================================================
 // CARD RENDERING
 // ============================================================
 function renderCard(card) {
@@ -1287,6 +1600,11 @@ function dealNextCard() {
   void gameCard.offsetWidth;
   gameCard.classList.add('dealing');
   gameCard.addEventListener('animationend', () => gameCard.classList.remove('dealing'), { once: true });
+
+  // If card has a minigame, show overlay a beat after deal
+  if (card.minigame) {
+    setTimeout(() => showMinigame(card), 800);
+  }
 }
 
 // ============================================================
