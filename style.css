@@ -635,16 +635,18 @@ input[type=range]::-moz-range-thumb {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: var(--space-4) var(--space-6) var(--space-2);
+  padding: var(--space-6) var(--space-6) var(--space-3);
   min-height: 0;
   overflow-y: auto;
 }
 
 .card-container {
   position: relative;
-  width: min(340px, 90vw);
+  width: min(360px, 88vw);
   /* natural height — grows with card content */
   flex-shrink: 0;
+  /* Outer breathing room so card never grazes the screen edge */
+  margin: 0 auto;
 }
 
 .deck-card {
@@ -661,32 +663,36 @@ input[type=range]::-moz-range-thumb {
 .deck-1 { transform: rotate(0.5deg) translateY(1px); opacity: 0.55; z-index: 2; }
 
 .card {
-  position: relative;  /* was: absolute */
+  position: relative;
   width: 100%;
-  /* inset removed — natural flow */
   z-index: 3;
   border-radius: var(--radius-card);
   user-select: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;  /* was: center */
-  padding: var(--space-6) var(--space-6) var(--space-5);
-  gap: var(--space-3);
-  overflow: visible;  /* was: hidden */
-  border: 1.5px solid var(--card-border-color, var(--color-border));
-  background: var(--color-surface-2, #1e1829);
-  box-shadow: var(--shadow-card);
+  justify-content: flex-start;
+  /* Generous, even padding on all sides — text never touches the edge */
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  gap: var(--space-4);
+  overflow: visible;
+  /* Thicker, coloured border for clear card boundary */
+  border: 2px solid var(--card-border-color, rgba(124,92,191,0.45));
+  background: linear-gradient(160deg, #1e1829 0%, #191425 100%);
+  box-shadow:
+    var(--shadow-card),
+    0 0 0 1px rgba(255,255,255,0.04) inset;
 }
 .card::after {
   content: '';
   position: absolute;
-  inset: -20px;
-  border-radius: 50%;
-  background: var(--card-glow-color, rgba(124,92,191,0.12));
-  filter: blur(30px);
+  inset: -12px;
+  border-radius: var(--radius-card);
+  background: var(--card-glow-color, rgba(124,92,191,0.18));
+  filter: blur(28px);
   z-index: -1;
   pointer-events: none;
+  opacity: 0.9;
 }
 .card.dealing {
   animation: dealCard 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -721,9 +727,11 @@ input[type=range]::-moz-range-thumb {
   font-family: var(--font-display);
   font-weight: 700;
   text-align: center;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--color-text);
-  /* removed: flex:1, display:flex, align-items:center, justify-content:center */
+  /* Extra horizontal padding keeps text well away from card border */
+  padding: 0 var(--space-2);
+  width: 100%;
 }
 .card-target {
   font-size: var(--text-sm);
@@ -736,17 +744,21 @@ input[type=range]::-moz-range-thumb {
 
 /* Drink rule callout */
 .card-drink-rule {
-  margin-top: 14px;
-  padding: 8px 14px;
-  background: rgba(255,255,255,0.07);
+  margin-top: 4px;
+  padding: 10px 16px;
+  background: rgba(255,255,255,0.06);
   border-left: 3px solid var(--card-accent, #f0c060);
-  border-radius: 0 8px 8px 0;
-  font-size: 0.82rem;
+  border-radius: 0 10px 10px 0;
+  font-size: 0.83rem;
   font-weight: 600;
   color: var(--card-accent, #f0c060);
   letter-spacing: 0.02em;
-  line-height: 1.4;
+  line-height: 1.45;
   align-self: stretch;
+  /* Slight top separator so it reads as a distinct section */
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 8px;
+  padding-top: 12px;
 }
 .card-drink-rule.hidden { display: none; }
 
