@@ -656,10 +656,13 @@ function dealNextCard() {
 
   // Reset card flip
   const gameCard = document.getElementById('gameCard');
-  gameCard.classList.remove('flipped');
-  gameCard.classList.remove('dealing');
-  void gameCard.offsetWidth;
+  gameCard.classList.remove('flipped', 'dealing', 'leaving');
+  void gameCard.offsetWidth; // force reflow so animation restarts
   gameCard.classList.add('dealing');
+  // Remove 'dealing' once the animation ends so it can't override the flip transform
+  gameCard.addEventListener('animationend', () => {
+    gameCard.classList.remove('dealing');
+  }, { once: true });
 }
 
 function revealCard() {
@@ -667,6 +670,7 @@ function revealCard() {
   state.cardRevealed = true;
 
   const gameCard = document.getElementById('gameCard');
+  gameCard.classList.remove('dealing'); // clear deal animation before flipping
   gameCard.classList.add('flipped');
 
   // If vote card, show vote buttons

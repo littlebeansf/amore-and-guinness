@@ -458,9 +458,12 @@ input { font: inherit; color: inherit; }
   border-radius: var(--radius-card);
   user-select: none;
 }
-.card.flipped { transform: rotateY(180deg); }
+.card.flipped {
+  transform: rotateY(180deg) !important;
+}
 .card.dealing {
-  animation: dealCard 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: dealCard 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* no fill-mode — class is removed on animationend so transform is never held */
 }
 @keyframes dealCard {
   from { transform: translateY(-30px) scale(0.92); opacity: 0; }
