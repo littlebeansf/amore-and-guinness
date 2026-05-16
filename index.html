@@ -52,6 +52,42 @@
           <input type="text" id="irishName" placeholder="Aoife..." maxlength="16" autocomplete="off" />
         </div>
       </div>
+
+      <!-- GAME SETTINGS COLLAPSIBLE -->
+      <div class="settings-section">
+        <button class="settings-toggle" id="settingsToggle" aria-expanded="false">
+          <span>⚙️ Game Settings</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="settings-drawer" id="settingsDrawer" aria-hidden="true">
+          <!-- Round Mode -->
+          <div class="setting-row">
+            <span class="setting-label">Round Mode</span>
+            <div class="round-mode-toggle">
+              <button class="mode-pill active" id="modeShared" data-mode="shared">Shared Rounds</button>
+              <button class="mode-pill" id="modeTurns" data-mode="turns">Player Turns</button>
+            </div>
+          </div>
+          <!-- Total Rounds -->
+          <div class="setting-row">
+            <span class="setting-label">Total Rounds: <strong id="totalRoundsLabel">12</strong></span>
+            <input type="range" id="settingTotalRounds" min="6" max="24" value="12" step="1" />
+          </div>
+          <!-- Warm-Up End -->
+          <div class="setting-row">
+            <span class="setting-label">Warm-Up ends at Round: <strong id="warmupEndLabel">4</strong></span>
+            <input type="range" id="settingWarmupEnd" min="2" max="8" value="4" step="1" />
+          </div>
+          <!-- Spicy End -->
+          <div class="setting-row">
+            <span class="setting-label">Spicy Zone ends at Round: <strong id="spicyEndLabel">9</strong></span>
+            <input type="range" id="settingSpicyEnd" min="4" max="20" value="9" step="1" />
+          </div>
+        </div>
+      </div>
+
       <button class="btn-primary" id="startBtn">Start the Night ✨</button>
       <p class="disclaimer">🔞 Please drink responsibly. Know your limits.</p>
     </div>
@@ -69,22 +105,22 @@
         <div class="rule-card">
           <span class="rule-icon">🃏</span>
           <h3>Draw a Card</h3>
-          <p>Tap to flip — one card per round, no peeking ahead.</p>
+          <p>One card per round — no peeking ahead. In <strong>Player Turns</strong> mode, players alternate. In <strong>Shared Rounds</strong>, every card involves both of you.</p>
         </div>
         <div class="rule-card">
           <span class="rule-icon">🎭</span>
           <h3>Card Types</h3>
-          <p><strong>Challenge</strong> — Do it or drink. <strong>Truth</strong> — Answer or drink twice. <strong>Vote</strong> — Both vote secretly. <strong>Couple</strong> — Do it together.</p>
+          <p><strong>Challenge</strong> — Do it or drink. <strong>Truth</strong> — Answer or drink twice. <strong>Vote</strong> — Both vote secretly. <strong>Couple</strong> — Do it together. <strong>Wild</strong> — Chaos ensues.</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-icon">🌡️</span>
+          <h3>Three Zones</h3>
+          <p><strong>Warm-Up</strong> — light, funny, get-to-know-you vibes. <strong>Spicy Zone</strong> — things get personal. <strong>Extreme</strong> — no filter, no mercy.</p>
         </div>
         <div class="rule-card">
           <span class="rule-icon">🍹</span>
-          <h3>Drinking Rules</h3>
-          <p>1 sip = 1 drink. Failing a challenge? 2 sips. Refusing a truth? 3 sips. No judges here.</p>
-        </div>
-        <div class="rule-card">
-          <span class="rule-icon">🏆</span>
-          <h3>Rounds</h3>
-          <p>10 rounds per game. After round 5 — the Spicy Zone kicks in. Cards get bolder.</p>
+          <h3>Sip Rules</h3>
+          <p>1 sip = 1 drink. Chicken out of a challenge: +2 sips. Refuse a truth: +3 sips. Open-ended cards let you adjust sips manually. No judges here.</p>
         </div>
       </div>
       <button class="btn-primary" id="beginBtn">Let's Go 🔥</button>
@@ -94,12 +130,19 @@
   <!-- GAME SCREEN -->
   <div id="gameScreen" class="screen">
     <header class="game-header">
-      <div class="round-badge">
-        <span id="roundLabel">Round</span>
-        <span id="roundNum" class="round-number">1</span>
-        <span id="totalRounds">/ 10</span>
+      <div class="header-left">
+        <div class="round-badge">
+          <span id="roundLabel">Round</span>
+          <span id="roundNum" class="round-number">1</span>
+          <span id="totalRoundsDisplay">/ 12</span>
+        </div>
+        <!-- Turn indicator — only visible in Player Turns mode -->
+        <div class="turn-indicator hidden" id="turnIndicator">
+          <span id="turnEmoji">🍷</span>
+          <span id="turnName">Romeo</span>'s turn
+        </div>
       </div>
-      <div class="zone-badge" id="zoneBadge">Warm-Up Zone 🌶</div>
+      <div class="zone-badge" id="zoneBadge">Warm-Up 🌱</div>
       <button class="btn-icon" id="menuBtn" aria-label="Menu">⚙️</button>
     </header>
 
@@ -109,7 +152,7 @@
 
     <div class="card-arena">
       <div class="card-container" id="cardContainer">
-        <!-- Decorative deck shadows rendered BEHIND the card, inside the container -->
+        <!-- Decorative deck shadows rendered BEHIND the card -->
         <div class="deck-card deck-3"></div>
         <div class="deck-card deck-2"></div>
         <div class="deck-card deck-1"></div>
@@ -130,6 +173,28 @@
         </div>
         <div class="vote-result hidden" id="voteResult"></div>
       </div>
+
+      <!-- Sip adjuster — shown for sipsOpen cards -->
+      <div class="sip-adjuster-panel hidden" id="sipAdjusterPanel">
+        <p class="sip-adjuster-label">Adjust sips manually:</p>
+        <div class="sip-adjuster-row">
+          <span class="sip-adj-name">🍷 <span id="sipItalianName">Romeo</span></span>
+          <div class="sip-controls">
+            <button class="btn-sip btn-sip-minus" data-who="italian" data-dir="-1" aria-label="Remove sip Italian">−</button>
+            <span class="sip-adj-count" id="sipItalianCount">0 sips</span>
+            <button class="btn-sip btn-sip-plus" data-who="italian" data-dir="1" aria-label="Add sip Italian">+</button>
+          </div>
+        </div>
+        <div class="sip-adjuster-row">
+          <span class="sip-adj-name">🍺 <span id="sipIrishName">Aoife</span></span>
+          <div class="sip-controls">
+            <button class="btn-sip btn-sip-minus" data-who="irish" data-dir="-1" aria-label="Remove sip Irish">−</button>
+            <span class="sip-adj-count" id="sipIrishCount">0 sips</span>
+            <button class="btn-sip btn-sip-plus" data-who="irish" data-dir="1" aria-label="Add sip Irish">+</button>
+          </div>
+        </div>
+      </div>
+
       <div class="normal-actions" id="normalActions">
         <button class="btn-secondary" id="drinkBtn">😬 Chicken Out (+2 sips)</button>
         <button class="btn-primary" id="nextBtn">Next Card →</button>
@@ -140,24 +205,28 @@
       <div class="score-item">
         <span class="score-flag">🍷</span>
         <span class="score-name" id="italianScoreName">Romeo</span>
+        <button class="btn-sip btn-sip-minus" id="italianMinus" aria-label="Remove sip Italian">−</button>
         <span class="score-sips" id="italianSips">0 sips</span>
+        <button class="btn-sip btn-sip-plus" id="italianPlus" aria-label="Add sip Italian">+</button>
       </div>
       <div class="score-divider">vs</div>
       <div class="score-item">
         <span class="score-flag">🍺</span>
         <span class="score-name" id="irishScoreName">Aoife</span>
+        <button class="btn-sip btn-sip-minus" id="irishMinus" aria-label="Remove sip Irish">−</button>
         <span class="score-sips" id="irishSips">0 sips</span>
+        <button class="btn-sip btn-sip-plus" id="irishPlus" aria-label="Add sip Irish">+</button>
       </div>
     </div>
   </div>
 
-  <!-- ROUND TRANSITION -->
+  <!-- ZONE TRANSITION OVERLAY (warmup→spicy and spicy→extreme) -->
   <div id="roundTransition" class="overlay hidden">
-    <div class="transition-content">
-      <div class="transition-number" id="transitionNum">5</div>
-      <div class="transition-text" id="transitionText">SPICY ZONE INCOMING</div>
+    <div class="transition-content" id="transitionContent">
+      <div class="transition-emoji" id="transitionEmoji">🌶️</div>
+      <div class="transition-text" id="transitionText">SPICY ZONE</div>
       <div class="transition-sub" id="transitionSub">Things are about to get interesting...</div>
-      <button class="btn-primary" id="continueBtn">Bring it on 🌶️</button>
+      <button class="btn-primary" id="continueBtn">Let's go 🔥</button>
     </div>
   </div>
 
@@ -188,7 +257,7 @@
     </div>
   </div>
 
-  <!-- SETTINGS OVERLAY -->
+  <!-- SETTINGS OVERLAY (in-game) -->
   <div id="settingsOverlay" class="overlay hidden">
     <div class="settings-panel">
       <h3>Settings</h3>

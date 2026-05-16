@@ -1,313 +1,376 @@
 /* ===== AMORE & GUINNESS — GAME LOGIC ===== */
+// Card database: ~150 cards across warmup / spicy / extreme
+// Players born ~1997-1998 | Cultural refs: Italian + Irish + chronically online 28yo energy
 
 // ============================================================
-// CARD DATABASE — 120+ prompts, 6 categories, early + spicy
-// Players born ~1997-1998 | References 2000s-2020s culture
+// CARD DATABASE
 // ============================================================
-
 const CARDS = {
+
+  // ── WARM-UP (rounds 1→warmupEnd) ─────────────────────────
   warmup: [
-    // CHALLENGES — early rounds
+
+    // CHALLENGES
     {
       type: 'challenge',
-      text: 'Do your best Italian hand gesture to explain "I don\'t care". If the other person laughs, they drink.',
+      text: 'Do your best Italian hand gesture to express "I have absolutely no idea what you\'re talking about." If {irish} can\'t guess it — they drink.',
       target: 'italian',
     },
     {
       type: 'challenge',
-      text: 'Say "I\'ll be grand" in your best Irish accent. If {irish} doesn\'t cringe, you\'re doing it wrong — they drink.',
+      text: 'Say "ah sure look, it\'ll be grand" with full conviction. {italian} judges on a scale of 1–10. Under 6? Drink.',
       target: 'irish',
     },
     {
       type: 'challenge',
-      text: 'Order a drink in Italian. If you butcher the pronunciation so badly {italian} winces — drink 2.',
+      text: 'Order a Negroni sbagliato in Italian. One butchered pronunciation = 1 sip. {italian} is the judge.',
       target: 'irish',
     },
     {
       type: 'challenge',
-      text: 'Both players: name 3 pasta shapes in 10 seconds without repeating. Whoever fails first drinks.',
+      text: 'Both players: name 3 pasta shapes in 10 seconds, no repeats. First to blank drinks.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Describe Riverdance using only your hands. If {italian} recognises it in under 30 seconds, {irish} drinks.',
+      text: 'Hum the first 4 bars of the Italian national anthem. {irish} must stand to attention. Fail? Drink.',
+      target: 'italian',
+    },
+    {
+      type: 'challenge',
+      text: 'Explain to {italian} what a Centra meal deal is and why it changed lives. If they\'re still confused — you drink.',
       target: 'irish',
     },
     {
       type: 'challenge',
-      text: 'Do your best "mamma mia" impression. {irish} rates it 1-10. Under 6? Drink.',
+      text: 'Sip your drink and hold eye contact for 5 full seconds. First to look away drinks.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Name 5 European capitals in 10 seconds. Drink 1 sip for each one missed.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'challenge',
+      text: 'In the most convincing Irish mammy voice you have, say: "I\'m not angry, I\'m just disappointed." {irish} rates it out of 10. Under 6? Drink.',
       target: 'italian',
     },
     {
       type: 'challenge',
-      text: 'Sing the first 4 seconds of the 2006 Italian World Cup celebration. No Google. If {irish} has no idea what\'s happening — that\'s the point.',
+      text: 'Describe "dolce far niente" to {irish} without using the word "relax". 30 seconds. Fail? Drink.',
       target: 'italian',
     },
     {
       type: 'challenge',
-      text: 'Name a Robbie Williams song in 5 seconds or drink. Everyone had "Angels" on their parents\' CD.',
+      text: 'Recreate your most iconic Bebo profile photo pose. Right now. Other player scores it. Under 5? Drink.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Do a Ronaldo "Siuuu!" celebration. {irish} judges enthusiasm out of 10. Under 7? Drink.',
+      text: 'Quote one MSN Messenger away message you actually used. "Linkin Park lyrics" counts. Fail? Drink 2.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Both players name a song from FIFA 06 soundtrack simultaneously. Match? Both skip a sip. No match? Both drink.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Explain the Distracted Boyfriend meme to someone who\'s never seen the internet. 20 seconds. {italian} judges whether the description lands.',
+      target: 'irish',
+    },
+
+    // TRUTHS
+    {
+      type: 'truth',
+      text: 'What\'s the most embarrassing thing you\'ve Googled in the last week? Full honesty or drink 3.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: What Italian stereotype about yourself is 100% accurate? Own it or drink.',
       target: 'italian',
     },
     {
-      type: 'challenge',
-      text: 'Sip your drink and hold eye contact for 5 full seconds with the other person. First to blink drinks.',
+      type: 'truth',
+      text: '{irish}: What Irish stereotype about yourself is embarrassingly true? "Yeah the tea thing" is a valid answer but you still have to confirm it.',
+      target: 'irish',
+    },
+    {
+      type: 'truth',
+      text: 'What was your celebrity crush at age 12? The cringe rating determines who drinks.',
       target: 'both',
     },
     {
-      type: 'challenge',
-      text: 'Recite the Friends theme song opening line. Miss a word, drink.',
+      type: 'truth',
+      text: 'Confess: what\'s on your Spotify Wrapped that you\'d never admit to in public? Answer honestly or drink 3.',
       target: 'both',
     },
     {
-      type: 'challenge',
-      text: 'Do a 5-second TikTok dance. The other person rates it. Under 5? Drink.',
+      type: 'truth',
+      text: 'Be honest — what\'s your go-to excuse when you cancel plans? Extra drink if you\'ve used it this week.',
       target: 'both',
     },
     {
-      type: 'challenge',
-      text: 'In 10 seconds, name 5 European capitals or drink a sip for each one missed.',
+      type: 'truth',
+      text: '{irish}: Is a Tayto crisp sandwich objectively good? {italian} must listen with an open mind and cannot interrupt.',
+      target: 'irish',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: Have you ever pretended to be Spanish to avoid explaining Italy to someone? Judgment-free zone.',
+      target: 'italian',
+    },
+    {
+      type: 'truth',
+      text: 'What emo / scene / Tumblr-girl / skater phase did you go through in secondary school that you\'re quietly grateful you outgrew?',
       target: 'both',
     },
     {
-      type: 'challenge',
-      text: 'Switch phones for 30 seconds. Each person must react-emoji to the last 3 Spotify songs of the other. No peeking at chats.',
+      type: 'truth',
+      text: 'Did you have a Habbo Hotel account? What was your username? No username — drink 1 as punishment for a deprived childhood.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most ridiculous thing you downloaded on Limewire? Admit it.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a show you secretly binge-watched and told nobody about? Points for the more chaotic confession.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'Be honest: do you actually like Guinness, or is it just an identity choice at this point?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a food your mum made growing up that you know is deeply unglamorous but would still eat right now?',
       target: 'both',
     },
 
-    // TRUTHS — early rounds
-    {
-      type: 'truth',
-      text: 'What\'s the most embarrassing thing you\'ve Googled in the last month? Answer honestly or drink 3.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: What Italian stereotype about yourself is 100% true? Be honest or drink.',
-      target: 'italian',
-    },
-    {
-      type: 'truth',
-      text: '{irish}: What Irish stereotype about yourself is embarrassingly accurate? No lying or drink.',
-      target: 'irish',
-    },
-    {
-      type: 'truth',
-      text: 'Who was your celebrity crush at age 12? Go.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the worst movie you secretly loved in the 2000s? Bonus drink if it had a High School Musical connection.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s your go-to lie when you\'re pretending to be busy? Own it or drink.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'Have you ever Shazam\'d a song and been mortified by what it was? Confess.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the most ridiculous reason you\'ve ghosted someone? Or has someone ghosted you? Tell.',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: '{irish}: Real talk — is a Tayto crisp sandwich actually good? {italian} must listen with an open mind.',
-      target: 'irish',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: Have you ever pretended to be from somewhere else in Europe to avoid explaining Italy? No shame.',
-      target: 'italian',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s a phase you went through (emo, scene, skater, "I only wear black") that you\'re proud you outgrew?',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the most recent Netflix show you watched in one sitting and told no one about?',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'Be honest: do you actually like Guinness or do you just drink it because it\'s the vibe?',
-      target: 'both',
-    },
-
-    // VOTES — early rounds
+    // VOTES
     {
       type: 'vote',
       text: 'Who would survive longer on a desert island?',
       prompt: 'Who would survive longer on a desert island?',
       loser_drinks: 1,
+      target: 'both',
     },
     {
       type: 'vote',
       text: 'Who was the bigger drama queen as a teenager?',
-      prompt: 'Who was the bigger drama queen as a teenager?',
+      prompt: 'Bigger drama queen as a teenager?',
       loser_drinks: 2,
+      target: 'both',
     },
     {
       type: 'vote',
       text: 'Who spends more time getting ready?',
-      prompt: 'Who spends more time getting ready?',
+      prompt: 'Who takes longer to get ready?',
       loser_drinks: 1,
+      target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who would win MasterChef — with home-country advantage allowed?',
-      prompt: 'Who would win MasterChef — home country advantage allowed?',
+      text: 'Who would win MasterChef, home-country advantage allowed?',
+      prompt: 'Who wins MasterChef (home-country rules)?',
       loser_drinks: 1,
+      target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who would be more likely to accidentally start a international incident abroad?',
-      prompt: 'Who would be more likely to accidentally start an international incident?',
+      text: 'Who\'s more likely to accidentally start a diplomatic incident abroad?',
+      prompt: 'More likely to cause an international incident?',
       loser_drinks: 1,
+      target: 'both',
     },
     {
       type: 'vote',
       text: 'Who talks to strangers more easily?',
-      prompt: 'Who talks to strangers more easily?',
+      prompt: 'Talks to strangers more easily?',
       loser_drinks: 1,
-    },
-
-    // COUPLES — early rounds
-    {
-      type: 'couple',
-      text: 'Both teach each other one phrase in your language that you\'d only use at home. Pronunciation marks given.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Recreate your best version of the "Dirty Dancing" lift — or just attempt it and drink when you fail.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Take turns describing your perfect Sunday morning in your home country. Whoever paints a more vivid picture wins a sip-skip.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Both close your eyes. First one to say a 2000s pop song wins. Loser drinks.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Spend 30 seconds complimenting each other — but only about non-physical things. If either one laughs nervously, drink.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Quick debate: Pizza vs. Fish & Chips. You have 90 seconds. The more convincing argument wins bragging rights.',
       target: 'both',
     },
 
-    // NOSTALGIA — early rounds
+    // COUPLE
+    {
+      type: 'couple',
+      text: 'Each teach the other one phrase from your language that you\'d only use at home. Pronunciation matters. Mock each other freely.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Quick debate: Pizza vs. fish & chips. 90 seconds each. Most convincing argument wins a sip-skip.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Both close your eyes and simultaneously shout one 2000s pop song. Same song? Both skip a sip. Different song? You both drink.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Spend 30 seconds complimenting each other, non-physical things only. First one to laugh nervously or go awkwardly vague drinks.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Take turns describing your perfect Sunday morning in your home country. Most vivid description skips their next drink.',
+      target: 'both',
+    },
+
+    // NOSTALGIA
     {
       type: 'nostalgia',
-      text: 'Name the first console you played on. If it was a PlayStation 2, you both drink out of solidarity.',
+      text: 'Name the first console you played on. If it was a PlayStation 2, you both drink in solidarity.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Do you remember MSN Messenger? Your display name in 2009 was probably something tragic. Confess it.',
+      text: 'What was your MSN Messenger status in 2008? "xXx broken_wings xXx" and Yellowcard lyrics are both valid. Confess.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Who\'s your favourite character from the early 2000s cartoon era — SpongeBob, Kim Possible, Codename: Kids Next Door?',
+      text: 'Who was your early YouTube icon? Charlie Bit My Finger, Chocolate Rain, Fred Figglehorn? Tell the story.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Without thinking: Naruto or Dragon Ball Z? Fight.',
+      text: 'What was the stupidest thing you bought with your Leaving Cert / Maturità money? First to answer drinks if it was dumber than the other\'s.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'nostalgia',
+      text: 'Hannah Montana, High School Musical, or Lizzie McGuire? One shaped your childhood. Own it.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'What was your childhood comfort food that isn\'t in the other person\'s vocabulary? Explain it. They must drink if they\'ve never heard of it.',
+      text: 'Name a childhood comfort food that means nothing to the other person\'s culture. They drink if they\'ve never heard of it.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'nostalgia',
+      text: 'Recreate your school photo pose circa age 11. Both do it simultaneously. No prep.',
+      target: 'both',
+    },
+
+    // WILD
+    {
+      type: 'wild',
+      text: 'NPC mode for 30 seconds — both players must respond to everything said as if you\'re a background NPC in a video game. First one to break character drinks.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'You both have main character energy right now. Narrate the last 60 seconds of this evening as if it\'s a movie voiceover. Who does it better? Loser drinks.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Hannah Montana, High School Musical, or Lizzie McGuire? You watched at least one. Confess which one defined your childhood.',
+      text: 'Did you have a MySpace? What was in your Top 8? Anyone get hurt over that list? Be honest.',
       target: 'both',
     },
     {
-      type: 'nostalgia',
-      text: 'Recreate your school photo pose from age 11. Both of you. Simultaneously.',
+      type: 'challenge',
+      text: 'Demonstrate the exact noise your phone made when you got an MSN message notification in 2007. Other player drinks if they recognise it instantly.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s your most controversial food opinion? The other person must not react for a full 5 seconds after hearing it.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: '{italian} describes their ideal Sunday using only Italian words. {irish} must try to understand from context alone. No translation allowed for 60 seconds.',
       target: 'both',
     },
   ],
 
+  // ── SPICY ZONE (rounds warmupEnd+1 → spicyEnd) ───────────
   spicy: [
-    // CHALLENGES — spicy zone
+
+    // CHALLENGES
     {
       type: 'challenge',
-      text: 'Text your mum right now with just "Ti voglio bene" (Italian) or "Thinking of ya, Ma" (Irish). Screenshot counts as proof.',
+      text: 'Show each other the 7th photo in your camera roll. No deleting beforehand. If it\'s awkward — both drink.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Compliment the other person in the most dramatic Italian telenovela style possible. Use hand gestures. {irish} must fan themselves if it\'s convincing.',
+      text: 'Text your mum right now: "Ti voglio bene" or "Thinking of ya, Ma" depending on nationality. Screenshot or it didn\'t happen.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Compliment {irish} in the most dramatic Italian telenovela style you can manage. Use hands. Use pauses. Use the drama. {irish} must fan themselves if convinced.',
       target: 'italian',
     },
     {
       type: 'challenge',
-      text: 'Recreate your most attractive selfie face — right now, zero prep. The other person says "publish" or "delete". Delete? Drink.',
+      text: 'Recreate your most attractive selfie face. Right now. Zero prep. Other player votes "post" or "delete." Delete? Drink 2.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Call or voice-note a friend and say "Emergency, need your opinion on something" then hang up. No explanation. Who\'s brave enough?',
+      text: 'Stare at each other in complete silence for 30 seconds. First to smile drinks. First to say anything doubles it.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Talk for 60 seconds straight about {irish} without pausing, using only compliments. Hesitate? Drink.',
+      text: 'Freestyle rap about this evening — minimum 4 lines. Alternate. No rhyme = 1 sip each.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'challenge',
+      text: 'Post a BeReal right now — no filter, no repositioning. Whoever takes longest to hit post drinks.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'You have 60 seconds to explain the Roman Empire meme to someone who\'s never heard of it. {italian}, you will not be allowed to look smug. {irish} judges how convincing it is.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Talk about {irish} for 60 seconds using only compliments. No pausing. No filler. Hesitate? Drink.',
       target: 'italian',
     },
     {
       type: 'challenge',
-      text: 'Talk for 60 seconds straight about {italian} without pausing, using only compliments. Hesitate? Drink.',
+      text: 'Talk about {italian} for 60 seconds using only compliments. No pausing. No filler. Hesitate? Drink.',
       target: 'irish',
     },
     {
       type: 'challenge',
-      text: 'Freestyle rap about the date so far — minimum 4 lines. One person starts, the other continues. No rhyming = drink.',
+      text: 'Both scroll to your most recent "we need to talk" text or its cultural equivalent. Whoever had it more recently drinks 2.',
       target: 'both',
     },
     {
       type: 'challenge',
-      text: 'Show each other the 7th photo in your camera roll. No deleting beforehand. Both drink if it\'s awkward.',
+      text: 'Open Duolingo right now. How many days is your streak? Shorter streak? That person drinks. No streak? Drink 3.',
       target: 'both',
+      sipsOpen: true,
     },
     {
       type: 'challenge',
-      text: 'Stare at each other in complete silence for 30 seconds. First to smile drinks. First to say something drinks double.',
-      target: 'both',
-    },
-    {
-      type: 'challenge',
-      text: 'Take a photo together right now. Post it to your story with the caption "bella serata" or "great craic". Whoever refuses drinks 3.',
+      text: 'Both of you: describe tonight so far as a Spotify Wrapped top artist — one artist, and why. The weirder the choice, the better. Loser of the vibe contest drinks.',
       target: 'both',
     },
 
-    // TRUTHS — spicy zone
+    // TRUTHS
     {
       type: 'truth',
       text: 'What\'s the first thing you noticed about the other person tonight? Real answer or drink 3.',
@@ -315,12 +378,12 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: What\'s something about Irish culture you actually find really attractive? No diplomatic answers.',
+      text: '{italian}: What\'s something about Irish culture you actually find really attractive? No diplomatic non-answers.',
       target: 'italian',
     },
     {
       type: 'truth',
-      text: '{irish}: What\'s something about Italian culture that makes you want to move there? Be specific.',
+      text: '{irish}: What\'s something about Italian culture that genuinely makes you want to move there? Be specific.',
       target: 'irish',
     },
     {
@@ -330,27 +393,22 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: 'How many people have you dated from a different country? What was the culture clash that caught you off guard?',
-      target: 'both',
-    },
-    {
-      type: 'truth',
-      text: 'Be honest — what\'s your most irrational dealbreaker in a relationship?',
-      target: 'both',
-    },
-    {
-      type: 'truth',
       text: 'What\'s the most unexpected thing you find attractive in the other person right now?',
       target: 'both',
     },
     {
       type: 'truth',
-      text: 'What\'s a personal tradition from your culture that you hope a partner would adopt?',
+      text: 'Describe yourself in a "That\'s giving..." statement. The other person adds the last word.',
       target: 'both',
     },
     {
       type: 'truth',
-      text: 'If you could relive one night from your early 20s, what would it be and who would be there?',
+      text: 'What\'s your most irrational dealbreaker in a relationship? The more specific and unhinged, the better.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'If you could relive one night from your early 20s, which night would it be and who would definitely be there?',
       target: 'both',
     },
     {
@@ -365,116 +423,417 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: 'What\'s something you wish more people noticed about you?',
+      text: 'When did you last genuinely live in your "villain era" and what had you done?',
       target: 'both',
     },
+    {
+      type: 'truth',
+      text: 'What\'s living in your head rent-free lately? Could be a person, a decision, a text you drafted and deleted.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'Be honest — what\'s your love language, and do you actually do it, or do you just say it in a quiz?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: How often do you think about the Roman Empire — actually? Answer and {irish} decides if it\'s normal or concerning.',
+      target: 'italian',
+    },
+    {
+      type: 'truth',
+      text: '{irish}: What\'s the most "delulu" plan you\'ve actually acted on in the last year? Did it end well?',
+      target: 'irish',
+    },
 
-    // VOTES — spicy zone
+    // VOTES
     {
       type: 'vote',
       text: 'Who would be the more chaotic travel companion?',
-      prompt: 'Who would be the more chaotic travel companion?',
+      prompt: 'More chaotic travel companion?',
       loser_drinks: 2,
+      target: 'both',
     },
     {
       type: 'vote',
       text: 'Who\'s the bigger overthinker in relationships?',
-      prompt: 'Who\'s the bigger overthinker in relationships?',
+      prompt: 'Bigger overthinker in relationships?',
       loser_drinks: 2,
+      target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who would be more likely to send a "miss you" text first?',
-      prompt: 'Who would be more likely to send a "miss you" text first?',
+      text: 'Who would send the "miss you" text first?',
+      prompt: 'Sends "miss you" first?',
       loser_drinks: 2,
+      target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who\'s more charming in a first impression?',
-      prompt: 'Who\'s more charming in a first impression?',
+      text: 'Who\'s more charming with strangers in a first impression?',
+      prompt: 'More charming on first impression?',
       loser_drinks: 2,
+      target: 'both',
     },
     {
       type: 'vote',
       text: 'Who would be more dangerous as a villain?',
-      prompt: 'Who would be more dangerous as a villain?',
+      prompt: 'More dangerous as a villain?',
       loser_drinks: 1,
-    },
-
-    // COUPLES — spicy zone
-    {
-      type: 'couple',
-      text: 'Pick a song right now. Both of you listen to 30 seconds together, no talking. Then: what did you each feel?',
       target: 'both',
     },
     {
-      type: 'couple',
-      text: 'Write each other a 6-word love letter. You have 30 seconds. Read them simultaneously.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Tell each other the moment tonight where you thought "okay, they\'re interesting." Whoever is most specific wins a sip-skip.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Plan a hypothetical 72-hour trip together — one city, your choice. Each person adds one activity per turn. 4 rounds each. Go.',
-      target: 'both',
-    },
-    {
-      type: 'couple',
-      text: 'Both close your eyes. Picture the other person 10 years from now. Describe exactly what you see. Don\'t edit yourself.',
+      type: 'vote',
+      text: 'Who\'s the CEO of overthinking things that haven\'t happened yet?',
+      prompt: 'CEO of pre-emptive overthinking?',
+      loser_drinks: 2,
       target: 'both',
     },
 
-    // NOSTALGIA — spicy zone
+    // COUPLE
+    {
+      type: 'couple',
+      text: 'Pick a song right now. Both listen to 30 seconds together in silence. Then: what did you each feel, honestly?',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Write each other a 6-word love letter. 30 seconds each. Read them simultaneously.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Tell each other the moment tonight when you thought "okay, they\'re interesting." Most specific version wins a sip-skip.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Plan a hypothetical 72-hour trip together — pick one city. 4 rounds each, alternating. Add one activity per turn. Go.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Both close your eyes. Picture the other person 10 years from now. Describe what you see. Don\'t edit yourself.',
+      target: 'both',
+    },
+
+    // NOSTALGIA
     {
       type: 'nostalgia',
-      text: '{italian}: What Italian 2000s pop song do you still have on your playlist but deny? Confess or drink 2.',
+      text: '{italian}: What Italian early 2000s banger do you still have saved somewhere but "ironically"? Confess or drink 2.',
       target: 'italian',
     },
     {
       type: 'nostalgia',
-      text: '{irish}: Name a 2000s Irish mammy phrase that you\'ve accidentally used as an adult. Bonus drink if you can\'t stop using it.',
+      text: '{irish}: Name a phrase your mammy says that has leaked into your everyday vocabulary against your will.',
       target: 'irish',
     },
     {
       type: 'nostalgia',
-      text: 'What TV show from your childhood would horrify your adult self if you rewatched it?',
+      text: 'What TV show from your childhood would horrify your adult self if you actually rewatched it?',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Rate the impact of these on your generation: Bebo, Facebook, Vine, TikTok. 10 seconds each. Go.',
+      text: 'Rate the impact on your generation: Bebo, Facebook, Vine, TikTok. 10 seconds per platform. Go.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Quick fire: What was your most-played song on iTunes circa 2009? Both answer simultaneously. Shame-free zone.',
+      text: 'Quick fire: what was your most-played song on iTunes circa 2008? Both answer simultaneously. Shame-free zone.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Did you watch the 2006 World Cup final? {italian} — you get to gloat. {irish} — you have to hear it.',
+      text: 'Describe your GTA San Andreas strategy in one sentence. The more chaotic the strategy, the more everyone drinks.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'nostalgia',
+      text: 'What\'s a core memory from a night out in your early 20s that you\'ve told about 40 times but will never stop telling?',
+      target: 'both',
+    },
+
+    // WILD
+    {
+      type: 'wild',
+      text: 'The "this is fine" dog energy is real tonight. Both describe one thing in your life right now that is absolutely on fire that you\'re choosing to ignore. Whoever sounds more in denial drinks.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Chaotic good vs. chaotic evil: classify the other person\'s personality alignment. Give evidence. Other player must accept the verdict or drink 2.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Both of you have "understood the assignment" at some point tonight. Call it out with specifics. The one who understood it least drinks.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a phrase that lives rent-free in your head from a past relationship? You don\'t need to explain the context. Just say it out loud.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: '{irish}: Explain the Lidl middle aisle experience to {italian} as if it\'s a sacred pilgrimage. Give it the reverence it deserves.',
+      target: 'irish',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: What\'s one thing about a Sunday family lunch that a therapist would find interesting? Be specific.',
+      target: 'italian',
+    },
+    {
+      type: 'wild',
+      text: 'Both players: think of the most "touch grass immediately" opinion you\'ve seen online this week. Most unhinged answer wins a sip-skip.',
       target: 'both',
     },
     {
       type: 'nostalgia',
-      text: 'Name your favourite video game growing up. If it was the same as the other person\'s — both skip a sip.',
+      text: 'What\'s the first thing you bought with your own money as a child? Compare notes. Whoever bought something objectively more ridiculous drinks.',
+      target: 'both',
+      sipsOpen: true,
+    },
+  ],
+
+  // ── EXTREME ZONE (rounds spicyEnd+1 → totalRounds) ────────
+  extreme: [
+
+    // CHALLENGES
+    {
+      type: 'challenge',
+      text: 'Call a mutual friend right now. First thing they answer with determines who drinks. Hang up after 10 seconds. No context given.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Both players: show each other the last voice note you sent. No skipping ahead.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Open your most recent text thread with your mum and read the last thing you said to her out loud. Drink 1 sip for each awkward detail.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'challenge',
+      text: 'Tell the other person something about tonight that you didn\'t plan to say until at least two more drinks. Say it anyway. Chicken out? Drink 4.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Write a PostSecret-style confession on your phone notes — something true, something you\'ve never told anyone. You don\'t have to show it, but you have to actually write it. Don\'t? Drink 3.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Both log onto Instagram. Each person must read out the last caption they posted in their best influencer voice. Most cringe drinks.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Describe your biggest insecurity about dating in exactly 7 words. Go.',
+      target: 'both',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {italian} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it.',
+      target: 'irish',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {irish} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it.',
+      target: 'italian',
+    },
+
+    // TRUTHS
+    {
+      type: 'truth',
+      text: 'What\'s the most "main character energy" decision you\'ve ever made — something reckless that you\'d make again?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most embarrassing thing you\'ve done to get someone\'s attention? Did it work?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'When\'s the last time you genuinely cried at something and what was it? A movie counts. So does a Duolingo notification.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s something you\'ve told yourself about your love life that you know is a lie?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'If the other person texted you "we need to talk" tomorrow morning, what would your immediate assumption be — and why?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a version of yourself you\'ve outgrown but low-key miss?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most "no thoughts, head empty" decision you\'ve made that somehow worked out?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: What does "aperitivo hour" represent to you emotionally? This is not a small question. Answer properly.',
+      target: 'italian',
+    },
+    {
+      type: 'truth',
+      text: '{irish}: "Grand so" — tell me about a time you said it when nothing was even slightly grand.',
+      target: 'irish',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s something you want from a relationship that you\'ve never actually asked for out loud?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'Be honest: what\'s the last thing you did that was genuinely "the audacity"? No judgment zone.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a "girl dinner" / "boy dinner" you\'ve had this month that you could never explain to a nutritionist?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most "chronically online" opinion you hold that you know is slightly insane in real life?',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the thing about tonight that you\'ll still be thinking about tomorrow morning?',
+      target: 'both',
+    },
+
+    // VOTES
+    {
+      type: 'vote',
+      text: 'Who\'s more likely to send a paragraph text at 2am?',
+      prompt: 'More likely to send the 2am paragraph text?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who would fall first in this hypothetical relationship?',
+      prompt: 'Who falls first?',
+      loser_drinks: 2,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who\'s the bigger "I\'m obsessed with you" energy person?',
+      prompt: 'Bigger "I\'m obsessed with you" energy?',
+      loser_drinks: 2,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who would be more mortified the morning after a big night?',
+      prompt: 'More mortified the morning after?',
+      loser_drinks: 2,
+      target: 'both',
+    },
+
+    // COUPLE
+    {
+      type: 'couple',
+      text: 'Both look at each other for 10 uninterrupted seconds. No phones. No laughing it off. Then each say one honest thing.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'If tonight was a movie, what genre is it and what\'s the title? Both answer separately, then compare. Whoever\'s title is more accurate wins.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Tell each other one thing the other person said tonight that you\'ll actually remember. Be specific.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Plan the most absurdly perfect date you could imagine with this person — money no object. 3 minutes. Go.',
+      target: 'both',
+    },
+
+    // WILD
+    {
+      type: 'wild',
+      text: 'You both get to ask one question the other person must answer fully and honestly. No vetoing. Ask it now. Whoever gives the better answer skips their next sip.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Both of you are in your "obsessed" era right now. Admit one thing about this evening you\'re genuinely obsessed with — no irony allowed. Whoever sounds most sincere wins.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Rizz check: both players have 30 seconds to say the most genuinely charming thing they can think of right now. Not corny. Actually charming. The other player judges. Loser drinks.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Both players: pick a Vine or early meme that defined your sense of humour. Whoever\'s pick lands harder with the other person wins. Loser drinks.',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'It\'s Spotify Wrapped time. Each player names the top 3 artists the other person would have. Whoever guesses more accurately drinks less. {italian} goes first.',
+      target: 'both',
+      sipsOpen: true,
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a version of yourself you perform for people when you first meet them that isn\'t quite the real you?',
+      target: 'both',
+    },
+    {
+      type: 'wild',
+      text: 'Both players write a one-line BeReal caption for right now — this exact moment — as honestly as possible. Read them at the same time.',
+      target: 'both',
+    },
+    {
+      type: 'truth',
+      text: 'What would your Spotify Wrapped "Audio Aura" actually say about your emotional state this year? Uncomfortably honest answers only.',
+      target: 'both',
+    },
+    {
+      type: 'couple',
+      text: 'Without irony: tell the other person one thing you genuinely admire about them that you haven\'t mentioned yet tonight.',
       target: 'both',
     },
   ],
 };
 
-// Category display config
+// ============================================================
+// CATEGORY CONFIG
+// ============================================================
 const CAT_CONFIG = {
   challenge: {
     label: '⚔️ Challenge',
     catBg: 'rgba(179,58,58,0.2)',
     catColor: '#e05555',
     catBorder: 'rgba(179,58,58,0.35)',
-    glow: 'linear-gradient(135deg, #b33a3a, #e05555)',
     glowColor: 'rgba(179,58,58,0.15)',
   },
   truth: {
@@ -482,7 +841,6 @@ const CAT_CONFIG = {
     catBg: 'rgba(124,92,191,0.2)',
     catColor: '#a888ff',
     catBorder: 'rgba(124,92,191,0.35)',
-    glow: 'linear-gradient(135deg, #7c5cbf, #a888ff)',
     glowColor: 'rgba(124,92,191,0.15)',
   },
   vote: {
@@ -490,7 +848,6 @@ const CAT_CONFIG = {
     catBg: 'rgba(201,150,58,0.2)',
     catColor: '#f0c060',
     catBorder: 'rgba(201,150,58,0.35)',
-    glow: 'linear-gradient(135deg, #c9963a, #f0c060)',
     glowColor: 'rgba(201,150,58,0.15)',
   },
   couple: {
@@ -498,24 +855,21 @@ const CAT_CONFIG = {
     catBg: 'rgba(45,122,79,0.2)',
     catColor: '#45b875',
     catBorder: 'rgba(45,122,79,0.35)',
-    glow: 'linear-gradient(135deg, #2d7a4f, #45b875)',
     glowColor: 'rgba(45,122,79,0.15)',
-  },
-  spicy: {
-    label: '🌶️ Spicy',
-    catBg: 'rgba(212,66,110,0.2)',
-    catColor: '#ff7bac',
-    catBorder: 'rgba(212,66,110,0.35)',
-    glow: 'linear-gradient(135deg, #d4426e, #ff7bac)',
-    glowColor: 'rgba(212,66,110,0.15)',
   },
   nostalgia: {
     label: '🕹️ Nostalgia',
     catBg: 'rgba(74,134,200,0.2)',
     catColor: '#88bbff',
     catBorder: 'rgba(74,134,200,0.35)',
-    glow: 'linear-gradient(135deg, #4a86c8, #88bbff)',
     glowColor: 'rgba(74,134,200,0.15)',
+  },
+  wild: {
+    label: '🎲 Wild',
+    catBg: 'rgba(255,165,0,0.2)',
+    catColor: '#ffaa44',
+    catBorder: 'rgba(255,165,0,0.35)',
+    glowColor: 'rgba(255,165,0,0.12)',
   },
 };
 
@@ -528,14 +882,18 @@ let state = {
   italianSips: 0,
   irishSips: 0,
   round: 1,
-  totalRounds: 10,
-  spicyStart: 6,
-  isSpicy: false,
+  totalRounds: 12,
+  warmupEnd: 4,     // last warmup round
+  spicyEnd: 9,      // last spicy round (extreme = spicyEnd+1 to totalRounds)
+  zone: 'warmup',   // 'warmup' | 'spicy' | 'extreme'
+  roundMode: 'shared', // 'shared' | 'turns'
+  activeTurn: 'italian', // only relevant in 'turns' mode
   currentCard: null,
   usedWarmup: [],
   usedSpicy: [],
+  usedExtreme: [],
   voteState: { italianVoted: false, irishVoted: false, italianChoice: null, irishChoice: null },
-  advancing: false, // prevents double-advance
+  advancing: false,
 };
 
 // ============================================================
@@ -553,12 +911,18 @@ function shuffle(arr) {
 function pickCard(pool, used) {
   const available = pool.filter((_, i) => !used.includes(i));
   if (available.length === 0) {
-    // Reset if exhausted
     used.length = 0;
     return { card: pool[Math.floor(Math.random() * pool.length)], idx: 0 };
   }
-  const idx = pool.indexOf(available[Math.floor(Math.random() * available.length)]);
-  return { card: pool[idx], idx };
+  // In turns mode, prefer 'both' and active player's target cards
+  let candidates = available;
+  if (state.roundMode === 'turns') {
+    const preferred = available.filter(c => !c.target || c.target === 'both' || c.target === state.activeTurn);
+    if (preferred.length > 0) candidates = preferred;
+  }
+  const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+  const idx = pool.indexOf(chosen);
+  return { card: chosen, idx };
 }
 
 function personalize(text) {
@@ -567,22 +931,36 @@ function personalize(text) {
     .replace(/{irish}/g, state.irishName);
 }
 
+function getZone(round) {
+  if (round <= state.warmupEnd) return 'warmup';
+  if (round <= state.spicyEnd) return 'spicy';
+  return 'extreme';
+}
+
 function updateSips(who, amount) {
   if (who === 'italian' || who === 'both') {
-    state.italianSips += amount;
+    state.italianSips = Math.max(0, state.italianSips + amount);
     const el = document.getElementById('italianSips');
-    el.textContent = state.italianSips + (state.italianSips === 1 ? ' sip' : ' sips');
-    el.classList.remove('updated');
-    void el.offsetWidth;
-    el.classList.add('updated');
+    if (el) {
+      el.textContent = state.italianSips + (state.italianSips === 1 ? ' sip' : ' sips');
+      el.classList.remove('updated');
+      void el.offsetWidth;
+      el.classList.add('updated');
+    }
+    const adjEl = document.getElementById('sipItalianCount');
+    if (adjEl) adjEl.textContent = state.italianSips + (state.italianSips === 1 ? ' sip' : ' sips');
   }
   if (who === 'irish' || who === 'both') {
-    state.irishSips += amount;
+    state.irishSips = Math.max(0, state.irishSips + amount);
     const el = document.getElementById('irishSips');
-    el.textContent = state.irishSips + (state.irishSips === 1 ? ' sip' : ' sips');
-    el.classList.remove('updated');
-    void el.offsetWidth;
-    el.classList.add('updated');
+    if (el) {
+      el.textContent = state.irishSips + (state.irishSips === 1 ? ' sip' : ' sips');
+      el.classList.remove('updated');
+      void el.offsetWidth;
+      el.classList.add('updated');
+    }
+    const adjEl = document.getElementById('sipIrishCount');
+    if (adjEl) adjEl.textContent = state.irishSips + (state.irishSips === 1 ? ' sip' : ' sips');
   }
 }
 
@@ -598,25 +976,47 @@ function showScreen(id) {
 }
 
 // ============================================================
+// TURN INDICATOR
+// ============================================================
+function updateTurnIndicator() {
+  const indicator = document.getElementById('turnIndicator');
+  const turnEmoji = document.getElementById('turnEmoji');
+  const turnName = document.getElementById('turnName');
+  if (!indicator) return;
+
+  if (state.roundMode === 'turns') {
+    indicator.classList.remove('hidden', 'italian', 'irish');
+    if (state.activeTurn === 'italian') {
+      indicator.classList.add('italian');
+      if (turnEmoji) turnEmoji.textContent = '🍷';
+      if (turnName) turnName.textContent = state.italianName;
+    } else {
+      indicator.classList.add('irish');
+      if (turnEmoji) turnEmoji.textContent = '🍺';
+      if (turnName) turnName.textContent = state.irishName;
+    }
+  } else {
+    indicator.classList.add('hidden');
+  }
+}
+
+// ============================================================
 // CARD RENDERING
 // ============================================================
 function renderCard(card) {
-  const cardEl = document.getElementById('gameCard');
-  const catEl  = document.getElementById('cardCategory');
-  const textEl = document.getElementById('cardText');
-  const targetEl = document.getElementById('cardTarget');
+  const cardEl  = document.getElementById('gameCard');
+  const catEl   = document.getElementById('cardCategory');
+  const textEl  = document.getElementById('cardText');
+  const targetEl= document.getElementById('cardTarget');
   const cfg = CAT_CONFIG[card.type] || CAT_CONFIG.truth;
 
-  // Category badge styling
   catEl.textContent = cfg.label;
-  catEl.style.background   = cfg.catBg;
-  catEl.style.color        = cfg.catColor;
-  catEl.style.borderColor  = cfg.catBorder;
+  catEl.style.background  = cfg.catBg;
+  catEl.style.color       = cfg.catColor;
+  catEl.style.borderColor = cfg.catBorder;
 
-  // Card text
   textEl.textContent = personalize(card.text);
 
-  // Target hint
   if (card.target === 'italian') {
     targetEl.textContent = `👉 ${state.italianName}'s turn`;
   } else if (card.target === 'irish') {
@@ -627,14 +1027,19 @@ function renderCard(card) {
     targetEl.textContent = '';
   }
 
-  // Set glow colour on the card element itself via CSS vars
   cardEl.style.setProperty('--card-glow-color', cfg.glowColor);
   cardEl.style.borderColor = cfg.catBorder;
 }
 
 function dealNextCard() {
-  const pool = state.isSpicy ? CARDS.spicy : CARDS.warmup;
-  const used = state.isSpicy ? state.usedSpicy : state.usedWarmup;
+  const zone = getZone(state.round);
+  state.zone = zone;
+
+  const poolMap = { warmup: CARDS.warmup, spicy: CARDS.spicy, extreme: CARDS.extreme };
+  const usedMap = { warmup: state.usedWarmup, spicy: state.usedSpicy, extreme: state.usedExtreme };
+  const pool = poolMap[zone];
+  const used = usedMap[zone];
+
   const { card, idx } = pickCard(pool, used);
   used.push(idx);
   state.currentCard = card;
@@ -642,25 +1047,35 @@ function dealNextCard() {
 
   // Reset vote state
   state.voteState = { italianVoted: false, irishVoted: false, italianChoice: null, irishChoice: null };
-  document.getElementById('voteResult').classList.add('hidden');
-  document.getElementById('voteResult').textContent = '';
+  const voteResult = document.getElementById('voteResult');
+  if (voteResult) {
+    voteResult.classList.add('hidden');
+    voteResult.textContent = '';
+  }
   document.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('selected-italian', 'selected-irish'));
 
-  // Render card content immediately
   renderCard(card);
+  updateTurnIndicator();
 
   // Show correct action area
   if (card.type === 'vote') {
     document.getElementById('voteArea').classList.remove('hidden');
     document.getElementById('votePrompt').textContent = card.prompt || 'Who do you vote for?';
     document.getElementById('normalActions').classList.add('hidden');
+    document.getElementById('sipAdjusterPanel').classList.add('hidden');
+  } else if (card.sipsOpen) {
+    document.getElementById('voteArea').classList.add('hidden');
+    document.getElementById('normalActions').classList.remove('hidden');
+    document.getElementById('drinkBtn').classList.add('hidden');
+    document.getElementById('sipAdjusterPanel').classList.remove('hidden');
   } else {
     document.getElementById('voteArea').classList.add('hidden');
     document.getElementById('normalActions').classList.remove('hidden');
     document.getElementById('drinkBtn').classList.remove('hidden');
+    document.getElementById('sipAdjusterPanel').classList.add('hidden');
   }
 
-  // Slide-in animation
+  // Dealing animation
   const gameCard = document.getElementById('gameCard');
   gameCard.classList.remove('dealing', 'leaving');
   void gameCard.offsetWidth;
@@ -686,26 +1101,52 @@ function handleVote(voter, choice) {
   }
 
   if (vs.italianVoted && vs.irishVoted) {
-    // Reveal result
     const drinkAmount = state.currentCard.loser_drinks || 1;
     const resultEl = document.getElementById('voteResult');
     resultEl.classList.remove('hidden');
 
     if (vs.italianChoice === vs.irishChoice) {
-      // Both agree — the chosen person drinks
       const loser = vs.italianChoice;
       const loserName = loser === 'italian' ? state.italianName : state.irishName;
       resultEl.textContent = `Both agree: ${loserName} drinks ${drinkAmount} sip${drinkAmount > 1 ? 's' : ''}! 🎯`;
       updateSips(loser, drinkAmount);
     } else {
-      // They disagreed — both drink 1
       resultEl.textContent = `Divided verdict! Everyone drinks 1 sip 🤷`;
       updateSips('both', 1);
     }
 
-    // Auto-advance to next card after showing the result
     setTimeout(() => advanceCard(), 2000);
   }
+}
+
+// ============================================================
+// ZONE TRANSITIONS
+// ============================================================
+function showZoneTransition(fromZone, toZone, onContinue) {
+  const overlay = document.getElementById('roundTransition');
+  const content = document.getElementById('transitionContent');
+  const emojiEl = document.getElementById('transitionEmoji');
+  const textEl  = document.getElementById('transitionText');
+  const subEl   = document.getElementById('transitionSub');
+
+  overlay.classList.remove('transition-spicy', 'transition-extreme');
+
+  if (toZone === 'spicy') {
+    overlay.classList.add('transition-spicy');
+    emojiEl.textContent = '🌶️';
+    textEl.textContent  = 'SPICY ZONE';
+    subEl.textContent   = `Round ${state.round} — stop playing it safe. Things get personal from here.`;
+  } else if (toZone === 'extreme') {
+    overlay.classList.add('transition-extreme');
+    emojiEl.textContent = '🔥🌋🔥';
+    textEl.textContent  = 'EXTREME ZONE';
+    subEl.textContent   = `No filter. No mercy. No regrets. The final stretch starts now.`;
+  }
+
+  overlay.classList.remove('hidden');
+
+  // Store the onContinue callback for the continue button
+  overlay._onContinue = onContinue;
 }
 
 // ============================================================
@@ -719,6 +1160,7 @@ function advanceCard() {
   gameCard.classList.add('leaving');
 
   setTimeout(() => {
+    const prevZone = state.zone;
     state.round++;
 
     // Update progress bar & round number
@@ -726,15 +1168,36 @@ function advanceCard() {
     document.getElementById('progressBar').style.width = pct + '%';
     document.getElementById('roundNum').textContent = state.round;
 
-    // Spicy zone transition
-    if (state.round === state.spicyStart && !state.isSpicy) {
-      showSpicyTransition();
+    // In turns mode, alternate the active turn
+    if (state.roundMode === 'turns') {
+      state.activeTurn = state.activeTurn === 'italian' ? 'irish' : 'italian';
+    }
+
+    // Check for game over first
+    if (state.round > state.totalRounds) {
+      endGame();
       return;
     }
 
-    // Game over
-    if (state.round > state.totalRounds) {
-      endGame();
+    const newZone = getZone(state.round);
+
+    // Zone badge update
+    updateZoneBadge(newZone);
+
+    // Zone transition checks
+    if (prevZone === 'warmup' && newZone === 'spicy') {
+      showZoneTransition('warmup', 'spicy', () => {
+        document.getElementById('roundTransition').classList.add('hidden');
+        dealNextCard();
+      });
+      return;
+    }
+
+    if (prevZone === 'spicy' && newZone === 'extreme') {
+      showZoneTransition('spicy', 'extreme', () => {
+        document.getElementById('roundTransition').classList.add('hidden');
+        dealNextCard();
+      });
       return;
     }
 
@@ -742,12 +1205,18 @@ function advanceCard() {
   }, 300);
 }
 
-function showSpicyTransition() {
-  const overlay = document.getElementById('roundTransition');
-  overlay.classList.remove('hidden');
-  document.getElementById('transitionNum').textContent = '🌶️';
-  document.getElementById('transitionText').textContent = 'SPICY ZONE';
-  document.getElementById('transitionSub').textContent = `Round ${state.spicyStart} — time to stop playing it safe...`;
+function updateZoneBadge(zone) {
+  const badge = document.getElementById('zoneBadge');
+  badge.classList.remove('spicy', 'zone-extreme');
+  if (zone === 'warmup') {
+    badge.textContent = 'Warm-Up 🌱';
+  } else if (zone === 'spicy') {
+    badge.textContent = 'Spicy Zone 🌶️';
+    badge.classList.add('spicy');
+  } else {
+    badge.textContent = 'Extreme 🔥';
+    badge.classList.add('zone-extreme');
+  }
 }
 
 // ============================================================
@@ -755,12 +1224,12 @@ function showSpicyTransition() {
 // ============================================================
 function endGame() {
   document.getElementById('endItalianName').textContent = state.italianName;
-  document.getElementById('endIrishName').textContent = state.irishName;
+  document.getElementById('endIrishName').textContent   = state.irishName;
   document.getElementById('endItalianSips').textContent = state.italianSips + (state.italianSips === 1 ? ' sip' : ' sips');
-  document.getElementById('endIrishSips').textContent = state.irishSips + (state.irishSips === 1 ? ' sip' : ' sips');
+  document.getElementById('endIrishSips').textContent   = state.irishSips + (state.irishSips === 1 ? ' sip' : ' sips');
 
   const italianCard = document.getElementById('endItalian');
-  const irishCard = document.getElementById('endIrish');
+  const irishCard   = document.getElementById('endIrish');
   italianCard.classList.remove('winner');
   irishCard.classList.remove('winner');
 
@@ -770,6 +1239,8 @@ function endGame() {
     `From Rome to Dublin, this one's a story to tell.`,
     `One night, two cultures, zero regrets.`,
     `Mamma mia… what a night.`,
+    `"I will yeah" — but you actually did. Legends.`,
+    `That's giving… unforgettable. Understood the assignment.`,
   ];
 
   if (state.italianSips < state.irishSips) {
@@ -779,7 +1250,7 @@ function endGame() {
     document.getElementById('winnerText').textContent = `${state.irishName} held their ground 🏆`;
     irishCard.classList.add('winner');
   } else {
-    document.getElementById('winnerText').textContent = `It\'s a dead heat — perfectly balanced 🤝`;
+    document.getElementById('winnerText').textContent = `Dead heat — perfectly balanced 🤝`;
     italianCard.classList.add('winner');
     irishCard.classList.add('winner');
   }
@@ -795,59 +1266,163 @@ function resetGame() {
   state.italianSips = 0;
   state.irishSips = 0;
   state.round = 1;
-  state.isSpicy = false;
-  state.usedWarmup = [];
-  state.usedSpicy = [];
+  state.zone = 'warmup';
+  state.activeTurn = 'italian';
+  state.usedWarmup  = [];
+  state.usedSpicy   = [];
+  state.usedExtreme = [];
   state.advancing = false;
 
-  // Update UI names
   document.getElementById('voteItalianName').textContent = state.italianName;
-  document.getElementById('voteIrishName').textContent = state.irishName;
+  document.getElementById('voteIrishName').textContent   = state.irishName;
   document.getElementById('italianScoreName').textContent = state.italianName;
-  document.getElementById('irishScoreName').textContent = state.irishName;
+  document.getElementById('irishScoreName').textContent   = state.irishName;
+  // sip adjuster panel name labels
+  const sipItName = document.getElementById('sipItalianName');
+  const sipIrName = document.getElementById('sipIrishName');
+  if (sipItName) sipItName.textContent = state.italianName;
+  if (sipIrName) sipIrName.textContent = state.irishName;
+
   document.getElementById('italianSips').textContent = '0 sips';
-  document.getElementById('irishSips').textContent = '0 sips';
-  document.getElementById('roundNum').textContent = '1';
-  document.getElementById('totalRounds').textContent = '/ ' + state.totalRounds;
+  document.getElementById('irishSips').textContent   = '0 sips';
+  document.getElementById('roundNum').textContent    = '1';
+  document.getElementById('totalRoundsDisplay').textContent = '/ ' + state.totalRounds;
   document.getElementById('progressBar').style.width = '0%';
-  document.getElementById('zoneBadge').textContent = 'Warm-Up Zone 🌶';
-  document.getElementById('zoneBadge').classList.remove('spicy');
+  updateZoneBadge('warmup');
 
   dealNextCard();
+}
+
+// ============================================================
+// READ SETTINGS FROM SPLASH UI
+// ============================================================
+function readSettings() {
+  const totalRoundsEl = document.getElementById('settingTotalRounds');
+  const warmupEndEl   = document.getElementById('settingWarmupEnd');
+  const spicyEndEl    = document.getElementById('settingSpicyEnd');
+  const modeSharedEl  = document.getElementById('modeShared');
+
+  if (totalRoundsEl) state.totalRounds = parseInt(totalRoundsEl.value, 10) || 12;
+  if (warmupEndEl)   state.warmupEnd   = parseInt(warmupEndEl.value, 10)   || 4;
+  if (spicyEndEl)    state.spicyEnd    = parseInt(spicyEndEl.value, 10)    || 9;
+
+  // Clamp values to stay consistent
+  state.warmupEnd = Math.min(state.warmupEnd, state.spicyEnd - 1);
+  state.spicyEnd  = Math.min(state.spicyEnd, state.totalRounds - 1);
+
+  const roundModeEl = document.querySelector('.mode-pill.active');
+  state.roundMode = roundModeEl ? roundModeEl.dataset.mode : 'shared';
 }
 
 // ============================================================
 // EVENT LISTENERS
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // START button
+
+  // ── SETTINGS DRAWER TOGGLE ────────────────────────────────
+  const settingsToggle = document.getElementById('settingsToggle');
+  const settingsDrawer = document.getElementById('settingsDrawer');
+  if (settingsToggle && settingsDrawer) {
+    settingsToggle.addEventListener('click', () => {
+      const isOpen = settingsDrawer.classList.toggle('open');
+      settingsToggle.setAttribute('aria-expanded', String(isOpen));
+      settingsDrawer.setAttribute('aria-hidden', String(!isOpen));
+    });
+  }
+
+  // ── ROUND MODE PILLS ──────────────────────────────────────
+  document.querySelectorAll('.mode-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // ── SLIDER LABELS ─────────────────────────────────────────
+  const totalRoundsSlider = document.getElementById('settingTotalRounds');
+  const warmupEndSlider   = document.getElementById('settingWarmupEnd');
+  const spicyEndSlider    = document.getElementById('settingSpicyEnd');
+
+  if (totalRoundsSlider) {
+    totalRoundsSlider.addEventListener('input', () => {
+      document.getElementById('totalRoundsLabel').textContent = totalRoundsSlider.value;
+      // Ensure spicy end doesn't exceed total rounds
+      if (spicyEndSlider && parseInt(spicyEndSlider.value) >= parseInt(totalRoundsSlider.value)) {
+        spicyEndSlider.value = parseInt(totalRoundsSlider.value) - 1;
+        document.getElementById('spicyEndLabel').textContent = spicyEndSlider.value;
+      }
+    });
+  }
+  if (warmupEndSlider) {
+    warmupEndSlider.addEventListener('input', () => {
+      document.getElementById('warmupEndLabel').textContent = warmupEndSlider.value;
+      // Ensure warm-up end is less than spicy end
+      if (spicyEndSlider && parseInt(warmupEndSlider.value) >= parseInt(spicyEndSlider.value)) {
+        spicyEndSlider.value = parseInt(warmupEndSlider.value) + 1;
+        document.getElementById('spicyEndLabel').textContent = spicyEndSlider.value;
+      }
+    });
+  }
+  if (spicyEndSlider) {
+    spicyEndSlider.addEventListener('input', () => {
+      document.getElementById('spicyEndLabel').textContent = spicyEndSlider.value;
+      if (warmupEndSlider && parseInt(spicyEndSlider.value) <= parseInt(warmupEndSlider.value)) {
+        warmupEndSlider.value = parseInt(spicyEndSlider.value) - 1;
+        document.getElementById('warmupEndLabel').textContent = warmupEndSlider.value;
+      }
+      if (totalRoundsSlider && parseInt(spicyEndSlider.value) >= parseInt(totalRoundsSlider.value)) {
+        totalRoundsSlider.value = parseInt(spicyEndSlider.value) + 1;
+        document.getElementById('totalRoundsLabel').textContent = totalRoundsSlider.value;
+      }
+    });
+  }
+
+  // ── START BUTTON (splash → rules) ─────────────────────────
   document.getElementById('startBtn').addEventListener('click', () => {
     const it = document.getElementById('italianName').value.trim();
     const ir = document.getElementById('irishName').value.trim();
     state.italianName = it || 'Romeo';
-    state.irishName = ir || 'Aoife';
+    state.irishName   = ir || 'Aoife';
     showScreen('rulesScreen');
   });
 
-  // BEGIN (rules → game)
+  // ── BEGIN (rules → game) ──────────────────────────────────
   document.getElementById('beginBtn').addEventListener('click', () => {
+    readSettings();
     showScreen('gameScreen');
     resetGame();
   });
 
-  // NEXT button — advance to next card
+  // ── NEXT CARD ─────────────────────────────────────────────
   document.getElementById('nextBtn').addEventListener('click', () => advanceCard());
 
-  // CHICKEN OUT — add sips then hide button (card stays visible)
+  // ── CHICKEN OUT ───────────────────────────────────────────
   document.getElementById('drinkBtn').addEventListener('click', () => {
     updateSips('both', 2);
     document.getElementById('drinkBtn').classList.add('hidden');
   });
 
-  // VOTE buttons
+  // ── SCOREBOARD SIP BUTTONS ────────────────────────────────
+  document.getElementById('italianPlus').addEventListener('click', () => updateSips('italian', 1));
+  document.getElementById('italianMinus').addEventListener('click', () => updateSips('italian', -1));
+  document.getElementById('irishPlus').addEventListener('click', () => updateSips('irish', 1));
+  document.getElementById('irishMinus').addEventListener('click', () => updateSips('irish', -1));
+
+  // ── SIP ADJUSTER PANEL (sipsOpen cards) — delegate ─────────
+  const sipPanel = document.getElementById('sipAdjusterPanel');
+  if (sipPanel) {
+    sipPanel.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-who]');
+      if (!btn) return;
+      const who = btn.dataset.who;
+      const dir = parseInt(btn.dataset.dir, 10);
+      updateSips(who, dir);
+    });
+  }
+
+  // ── VOTE BUTTONS ──────────────────────────────────────────
   document.getElementById('voteItalian').addEventListener('click', () => {
     if (state.voteState.italianVoted && state.voteState.irishVoted) return;
-    // We'll let both people tap — first tap is "first player" voting for italian
     if (!state.voteState.italianVoted) handleVote('italian', 'italian');
     else if (!state.voteState.irishVoted) handleVote('irish', 'italian');
   });
@@ -857,22 +1432,18 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (!state.voteState.irishVoted) handleVote('irish', 'irish');
   });
 
-  // SPICY ZONE continue
+  // ── ZONE TRANSITION CONTINUE ──────────────────────────────
   document.getElementById('continueBtn').addEventListener('click', () => {
-    state.isSpicy = true;
-    document.getElementById('zoneBadge').textContent = 'Spicy Zone 🔥';
-    document.getElementById('zoneBadge').classList.add('spicy');
-    document.getElementById('roundTransition').classList.add('hidden');
-    document.getElementById('drinkBtn').classList.remove('hidden');
-    dealNextCard();
+    const overlay = document.getElementById('roundTransition');
+    if (overlay._onContinue) overlay._onContinue();
   });
 
-  // PLAY AGAIN
+  // ── PLAY AGAIN ────────────────────────────────────────────
   document.getElementById('playAgainBtn').addEventListener('click', () => {
     showScreen('splash');
   });
 
-  // MENU button
+  // ── IN-GAME MENU ──────────────────────────────────────────
   document.getElementById('menuBtn').addEventListener('click', () => {
     document.getElementById('settingsOverlay').classList.remove('hidden');
   });
@@ -884,14 +1455,14 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen('splash');
   });
 
-  // Click outside settings
+  // Click outside settings overlay
   document.getElementById('settingsOverlay').addEventListener('click', (e) => {
     if (e.target === document.getElementById('settingsOverlay')) {
       document.getElementById('settingsOverlay').classList.add('hidden');
     }
   });
 
-  // Enter key on inputs
+  // ── KEYBOARD SHORTCUTS ────────────────────────────────────
   document.getElementById('irishName').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') document.getElementById('startBtn').click();
   });
@@ -899,8 +1470,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') document.getElementById('irishName').focus();
   });
 
-  // Touch feedback on Next Card button
+  // ── TOUCH FEEDBACK ────────────────────────────────────────
   const nextBtn = document.getElementById('nextBtn');
   nextBtn.addEventListener('touchstart', () => { nextBtn.style.transform = 'scale(0.97)'; }, { passive: true });
-  nextBtn.addEventListener('touchend',   () => { nextBtn.style.transform = ''; }, { passive: true });
+  nextBtn.addEventListener('touchend',   () => { nextBtn.style.transform = ''; },            { passive: true });
 });
