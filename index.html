@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amore & Guinness 🍷🍺</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splash" class="screen active">
+    <div class="splash-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="splash-content">
+      <div class="logo-mark">
+        <svg width="72" height="72" viewBox="0 0 72 72" fill="none" aria-label="Amore & Guinness logo">
+          <circle cx="36" cy="36" r="35" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+          <path d="M20 28 C20 22 28 18 36 24 C44 18 52 22 52 28 C52 38 36 48 36 48 C36 48 20 38 20 28Z" fill="url(#heartGrad)" opacity="0.9"/>
+          <path d="M28 44 Q29 50 36 52 Q43 50 44 44" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          <circle cx="24" cy="56" r="3" fill="#c9963a" opacity="0.8"/>
+          <circle cx="36" cy="60" r="3.5" fill="#c9963a" opacity="0.9"/>
+          <circle cx="48" cy="56" r="3" fill="#c9963a" opacity="0.8"/>
+          <defs>
+            <linearGradient id="heartGrad" x1="20" y1="18" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#b33a3a"/>
+              <stop offset="100%" stop-color="#2d7a4f"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h1 class="game-title">Amore &amp; Guinness</h1>
+      <p class="game-subtitle">A drinking game for two cultures, one night</p>
+      <div class="flags">
+        <span class="flag" title="Italy">🇮🇹</span>
+        <span class="heart-divider">♥</span>
+        <span class="flag" title="Ireland">🇮🇪</span>
+      </div>
+      <div class="player-setup">
+        <div class="input-group">
+          <label for="italianName">The Italian 🍷</label>
+          <input type="text" id="italianName" placeholder="Romeo..." maxlength="16" autocomplete="off" />
+        </div>
+        <div class="input-group">
+          <label for="irishName">The Irish 🍺</label>
+          <input type="text" id="irishName" placeholder="Aoife..." maxlength="16" autocomplete="off" />
+        </div>
+      </div>
+      <button class="btn-primary" id="startBtn">Start the Night ✨</button>
+      <p class="disclaimer">🔞 Please drink responsibly. Know your limits.</p>
+    </div>
+  </div>
+
+  <!-- RULES SCREEN -->
+  <div id="rulesScreen" class="screen">
+    <div class="splash-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+    <div class="rules-content">
+      <h2>How to Play</h2>
+      <div class="rules-grid">
+        <div class="rule-card">
+          <span class="rule-icon">🃏</span>
+          <h3>Draw a Card</h3>
+          <p>Tap to flip — one card per round, no peeking ahead.</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-icon">🎭</span>
+          <h3>Card Types</h3>
+          <p><strong>Challenge</strong> — Do it or drink. <strong>Truth</strong> — Answer or drink twice. <strong>Vote</strong> — Both vote secretly. <strong>Couple</strong> — Do it together.</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-icon">🍹</span>
+          <h3>Drinking Rules</h3>
+          <p>1 sip = 1 drink. Failing a challenge? 2 sips. Refusing a truth? 3 sips. No judges here.</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-icon">🏆</span>
+          <h3>Rounds</h3>
+          <p>10 rounds per game. After round 5 — the Spicy Zone kicks in. Cards get bolder.</p>
+        </div>
+      </div>
+      <button class="btn-primary" id="beginBtn">Let's Go 🔥</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" class="screen">
+    <header class="game-header">
+      <div class="round-badge">
+        <span id="roundLabel">Round</span>
+        <span id="roundNum" class="round-number">1</span>
+        <span id="totalRounds">/ 10</span>
+      </div>
+      <div class="zone-badge" id="zoneBadge">Warm-Up Zone 🌶</div>
+      <button class="btn-icon" id="menuBtn" aria-label="Menu">⚙️</button>
+    </header>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <div class="card-arena">
+      <div class="card-deck-bg">
+        <div class="deck-card deck-3"></div>
+        <div class="deck-card deck-2"></div>
+        <div class="deck-card deck-1"></div>
+      </div>
+      <div class="card-container" id="cardContainer">
+        <div class="card" id="gameCard">
+          <div class="card-front">
+            <div class="card-category" id="cardCategory">—</div>
+            <div class="card-text" id="cardText">Tap to reveal your card</div>
+            <div class="card-target" id="cardTarget"></div>
+          </div>
+          <div class="card-back">
+            <div class="card-back-logo">A&amp;G</div>
+            <div class="card-back-hint">Tap to reveal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="action-area">
+      <div class="vote-area hidden" id="voteArea">
+        <p class="vote-prompt" id="votePrompt">Who do you vote for?</p>
+        <div class="vote-buttons">
+          <button class="vote-btn" id="voteItalian">🍷 <span id="voteItalianName">Romeo</span></button>
+          <button class="vote-btn" id="voteIrish">🍺 <span id="voteIrishName">Aoife</span></button>
+        </div>
+        <div class="vote-result hidden" id="voteResult"></div>
+      </div>
+      <div class="normal-actions" id="normalActions">
+        <button class="btn-secondary" id="drinkBtn">😬 Chicken Out (+2 sips)</button>
+        <button class="btn-primary" id="nextBtn">Next Card →</button>
+      </div>
+    </div>
+
+    <div class="scoreboard">
+      <div class="score-item">
+        <span class="score-flag">🍷</span>
+        <span class="score-name" id="italianScoreName">Romeo</span>
+        <span class="score-sips" id="italianSips">0 sips</span>
+      </div>
+      <div class="score-divider">vs</div>
+      <div class="score-item">
+        <span class="score-flag">🍺</span>
+        <span class="score-name" id="irishScoreName">Aoife</span>
+        <span class="score-sips" id="irishSips">0 sips</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUND TRANSITION -->
+  <div id="roundTransition" class="overlay hidden">
+    <div class="transition-content">
+      <div class="transition-number" id="transitionNum">5</div>
+      <div class="transition-text" id="transitionText">SPICY ZONE INCOMING</div>
+      <div class="transition-sub" id="transitionSub">Things are about to get interesting...</div>
+      <button class="btn-primary" id="continueBtn">Bring it on 🌶️</button>
+    </div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="endScreen" class="screen">
+    <div class="splash-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="end-content">
+      <div class="end-crown">👑</div>
+      <h2 id="winnerText">Night's Champion</h2>
+      <div class="end-scores">
+        <div class="end-score-card" id="endItalian">
+          <span class="end-flag">🍷</span>
+          <span class="end-name" id="endItalianName">Romeo</span>
+          <span class="end-sips" id="endItalianSips">0 sips</span>
+        </div>
+        <div class="end-score-card" id="endIrish">
+          <span class="end-flag">🍺</span>
+          <span class="end-name" id="endIrishName">Aoife</span>
+          <span class="end-sips" id="endIrishSips">0 sips</span>
+        </div>
+      </div>
+      <p class="end-message" id="endMessage"></p>
+      <button class="btn-primary" id="playAgainBtn">One More Round? 🔄</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS OVERLAY -->
+  <div id="settingsOverlay" class="overlay hidden">
+    <div class="settings-panel">
+      <h3>Settings</h3>
+      <button class="btn-secondary" id="closeSettings">Back to Game</button>
+      <button class="btn-danger" id="quitGame">Quit Game</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
