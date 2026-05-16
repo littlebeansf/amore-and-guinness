@@ -348,6 +348,8 @@ input { font: inherit; color: inherit; }
   padding: 0;
   justify-content: flex-start;
   overflow: hidden;
+  /* Override .screen's overflow-y:auto so the layout is fully fixed */
+  overflow-y: hidden;
 }
 
 .game-header {
@@ -415,44 +417,38 @@ input { font: inherit; color: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-8) var(--space-6);
-  position: relative;
+  padding: var(--space-6) var(--space-6) var(--space-4);
   min-height: 0;
+  /* Must NOT be position:relative with overflow issues */
 }
 
-/* Background deck effect */
-.card-deck-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+/* Card container holds both the decorative deck shadows and the real card */
+.card-container {
+  position: relative;           /* establishes stacking context */
+  width: min(320px, 86vw);
+  height: min(420px, 52vh);
+  perspective: 1200px;
+  cursor: pointer;
+  flex-shrink: 0;
 }
+
+/* Deck shadow cards — absolutely inside container, pointer-events off */
 .deck-card {
   position: absolute;
-  width: min(340px, 88vw);
-  height: min(440px, 55vh);
+  inset: 0;
   border-radius: var(--radius-card);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  top: 0; left: 50%;
+  pointer-events: none;
 }
-.deck-3 { transform: translateX(-50%) rotate(-4deg) translateY(8px); opacity: 0.25; }
-.deck-2 { transform: translateX(-50%) rotate(-2deg) translateY(4px); opacity: 0.4; }
-.deck-1 { transform: translateX(-50%) rotate(0.5deg) translateY(1px); opacity: 0.6; }
-
-.card-container {
-  position: relative;
-  width: min(340px, 88vw);
-  height: min(440px, 55vh);
-  perspective: 1200px;
-  cursor: pointer;
-}
+.deck-3 { transform: rotate(-4deg) translateY(6px); opacity: 0.2; z-index: 0; }
+.deck-2 { transform: rotate(-2deg) translateY(3px); opacity: 0.35; z-index: 1; }
+.deck-1 { transform: rotate(0.5deg) translateY(1px); opacity: 0.55; z-index: 2; }
 
 .card {
-  width: 100%;
-  height: 100%;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 3;                   /* sits above all deck-card shadows */
   transform-style: preserve-3d;
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: var(--radius-card);
@@ -479,6 +475,8 @@ input { font: inherit; color: inherit; }
 .card-front, .card-back {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-card);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
