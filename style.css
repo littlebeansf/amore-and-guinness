@@ -424,11 +424,9 @@ input { font: inherit; color: inherit; }
 
 /* Card container holds both the decorative deck shadows and the real card */
 .card-container {
-  position: relative;           /* establishes stacking context */
+  position: relative;
   width: min(320px, 86vw);
   height: min(420px, 52vh);
-  perspective: 1200px;
-  cursor: pointer;
   flex-shrink: 0;
 }
 
@@ -448,99 +446,46 @@ input { font: inherit; color: inherit; }
 .card {
   position: absolute;
   inset: 0;
-  z-index: 3;                   /* sits above all deck-card shadows */
-  transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 3;
   border-radius: var(--radius-card);
   user-select: none;
-}
-.card.flipped {
-  transform: rotateY(180deg) !important;
-}
-.card.dealing {
-  animation: dealCard 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  /* no fill-mode — class is removed on animationend so transform is never held */
-}
-@keyframes dealCard {
-  from { transform: translateY(-30px) scale(0.92); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
-.card.leaving {
-  animation: leaveCard 0.35s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-}
-@keyframes leaveCard {
-  to { transform: translateY(20px) scale(0.92); opacity: 0; }
-}
-
-.card-front, .card-back {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-card);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--space-8) var(--space-6);
   gap: var(--space-4);
-  border: 1px solid var(--color-border);
   overflow: hidden;
-}
-.card-back {
-  background: var(--color-surface);
-  background-image: 
-    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px),
-    repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px);
-}
-.card-back-logo {
-  font-family: var(--font-display);
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--color-gold);
-  opacity: 0.5;
-}
-.card-back-hint {
-  font-size: var(--text-sm);
-  color: #9b92b0;
-  letter-spacing: 0.05em;
-  animation: shimmer 2s ease-in-out infinite;
-}
-@keyframes shimmer {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
-}
-
-.card-front {
+  /* Coloured border glow — set via JS */
+  border: 1.5px solid var(--card-border-color, var(--color-border));
   background: var(--color-surface-2, #1e1829);
-  transform: rotateY(180deg);
-  position: relative;
+  box-shadow: var(--shadow-card);
 }
-/* Colored border glow based on category */
-.card-front::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-card);
-  padding: 2px;
-  background: var(--card-glow, linear-gradient(135deg, #b33a3a, #7c5cbf));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.7;
-}
-.card-front::after {
+.card::after {
   content: '';
   position: absolute;
   inset: -20px;
   border-radius: 50%;
-  background: var(--card-glow-color, rgba(124,92,191,0.15));
+  background: var(--card-glow-color, rgba(124,92,191,0.12));
   filter: blur(30px);
   z-index: -1;
   pointer-events: none;
 }
+.card.dealing {
+  animation: dealCard 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes dealCard {
+  from { transform: translateY(-24px) scale(0.94); opacity: 0; }
+  to   { transform: translateY(0)     scale(1);    opacity: 1; }
+}
+.card.leaving {
+  animation: leaveCard 0.3s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+@keyframes leaveCard {
+  to { transform: translateY(16px) scale(0.94); opacity: 0; }
+}
+
+/* card-front / card-back removed — card is always face-up */
 
 .card-category {
   font-size: var(--text-xs);
@@ -549,9 +494,11 @@ input { font: inherit; color: inherit; }
   text-transform: uppercase;
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full, 9999px);
-  background: var(--card-cat-bg, rgba(124,92,191,0.2));
-  color: var(--card-cat-color, var(--color-purple-light));
-  border: 1px solid var(--card-cat-border, rgba(124,92,191,0.3));
+  background: var(--cat-bg, rgba(124,92,191,0.2));
+  color: var(--cat-color, #a888ff);
+  border: 1px solid var(--cat-border, rgba(124,92,191,0.3));
+  align-self: center;
+  flex-shrink: 0;
 }
 
 .card-text {
@@ -572,6 +519,7 @@ input { font: inherit; color: inherit; }
   text-align: center;
   font-style: italic;
   min-height: 1.5em;
+  flex-shrink: 0;
 }
 
 /* ===== ACTION AREA ===== */
@@ -865,22 +813,4 @@ input { font: inherit; color: inherit; }
   .scoreboard { padding-bottom: var(--space-4); }
 }
 
-/* ===== ANIMATIONS FOR CARD CATEGORIES ===== */
-.card-front[data-cat="challenge"]::before {
-  background: linear-gradient(135deg, var(--card-challenge), #e05555);
-}
-.card-front[data-cat="truth"]::before {
-  background: linear-gradient(135deg, var(--card-truth), #a888ff);
-}
-.card-front[data-cat="vote"]::before {
-  background: linear-gradient(135deg, var(--card-vote), var(--color-gold-light));
-}
-.card-front[data-cat="couple"]::before {
-  background: linear-gradient(135deg, var(--card-couple), var(--color-irish-light));
-}
-.card-front[data-cat="spicy"]::before {
-  background: linear-gradient(135deg, var(--card-spicy), #ff7bac);
-}
-.card-front[data-cat="nostalgia"]::before {
-  background: linear-gradient(135deg, var(--card-nostalgia), #88bbff);
-}
+/* category border colours are now set via CSS vars on .card by JS */

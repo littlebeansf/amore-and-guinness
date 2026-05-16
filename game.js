@@ -531,12 +531,11 @@ let state = {
   totalRounds: 10,
   spicyStart: 6,
   isSpicy: false,
-  cardRevealed: false,
   currentCard: null,
   usedWarmup: [],
   usedSpicy: [],
   voteState: { italianVoted: false, irishVoted: false, italianChoice: null, irishChoice: null },
-  waitingForNext: false,
+  advancing: false, // prevents double-advance
 };
 
 // ============================================================
@@ -602,17 +601,17 @@ function showScreen(id) {
 // CARD RENDERING
 // ============================================================
 function renderCard(card) {
-  const front = document.querySelector('.card-front');
-  const catEl = document.getElementById('cardCategory');
+  const cardEl = document.getElementById('gameCard');
+  const catEl  = document.getElementById('cardCategory');
   const textEl = document.getElementById('cardText');
   const targetEl = document.getElementById('cardTarget');
   const cfg = CAT_CONFIG[card.type] || CAT_CONFIG.truth;
 
-  // Category badge
+  // Category badge styling
   catEl.textContent = cfg.label;
-  catEl.style.background = cfg.catBg;
-  catEl.style.color = cfg.catColor;
-  catEl.style.borderColor = cfg.catBorder;
+  catEl.style.background   = cfg.catBg;
+  catEl.style.color        = cfg.catColor;
+  catEl.style.borderColor  = cfg.catBorder;
 
   // Card text
   textEl.textContent = personalize(card.text);
@@ -628,10 +627,9 @@ function renderCard(card) {
     targetEl.textContent = '';
   }
 
-  // Glowing border
-  front.style.setProperty('--card-glow', cfg.glow);
-  front.style.setProperty('--card-glow-color', cfg.glowColor);
-  front.setAttribute('data-cat', card.type);
+  // Set glow colour on the card element itself via CSS vars
+  cardEl.style.setProperty('--card-glow-color', cfg.glowColor);
+  cardEl.style.borderColor = cfg.catBorder;
 }
 
 function dealNextCard() {
@@ -640,47 +638,34 @@ function dealNextCard() {
   const { card, idx } = pickCard(pool, used);
   used.push(idx);
   state.currentCard = card;
-  state.cardRevealed = false;
-  state.waitingForNext = false;
-
-  // Render content (hidden behind back)
-  renderCard(card);
+  state.advancing = false;
 
   // Reset vote state
   state.voteState = { italianVoted: false, irishVoted: false, italianChoice: null, irishChoice: null };
-  document.getElementById('voteArea').classList.add('hidden');
   document.getElementById('voteResult').classList.add('hidden');
-  document.getElementById('normalActions').classList.remove('hidden');
   document.getElementById('voteResult').textContent = '';
   document.querySelectorAll('.vote-btn').forEach(b => b.classList.remove('selected-italian', 'selected-irish'));
 
-  // Reset card flip
-  const gameCard = document.getElementById('gameCard');
-  gameCard.classList.remove('flipped', 'dealing', 'leaving');
-  void gameCard.offsetWidth; // force reflow so animation restarts
-  gameCard.classList.add('dealing');
-  // Remove 'dealing' once the animation ends so it can't override the flip transform
-  gameCard.addEventListener('animationend', () => {
-    gameCard.classList.remove('dealing');
-  }, { once: true });
-}
+  // Render card content immediately
+  renderCard(card);
 
-function revealCard() {
-  if (state.cardRevealed || state.waitingForNext) return;
-  state.cardRevealed = true;
-
-  const gameCard = document.getElementById('gameCard');
-  gameCard.classList.remove('dealing'); // clear deal animation before flipping
-  gameCard.classList.add('flipped');
-
-  // If vote card, show vote buttons
-  if (state.currentCard && state.currentCard.type === 'vote') {
-    setTimeout(() => {
-      document.getElementById('voteArea').classList.remove('hidden');
-      document.getElementById('votePrompt').textContent = state.currentCard.prompt || 'Who do you vote for?';
-      document.getElementById('normalActions').classList.add('hidden');
-    }, 400);
+  // Show correct action area
+  if (card.type === 'vote') {
+    document.getElementById('voteArea').classList.remove('hidden');
+    document.getElementById('votePrompt').textContent = card.prompt || 'Who do you vote for?';
+    document.getElementById('normalActions').classList.add('hidden');
+  } else {
+    document.getElementById('voteArea').classList.add('hidden');
+    document.getElementById('normalActions').classList.remove('hidden');
+    document.getElementById('drinkBtn').classList.remove('hidden');
   }
+
+  // Slide-in animation
+  const gameCard = document.getElementById('gameCard');
+  gameCard.classList.remove('dealing', 'leaving');
+  void gameCard.offsetWidth;
+  gameCard.classList.add('dealing');
+  gameCard.addEventListener('animationend', () => gameCard.classList.remove('dealing'), { once: true });
 }
 
 // ============================================================
@@ -718,41 +703,43 @@ function handleVote(voter, choice) {
       updateSips('both', 1);
     }
 
-    // Show next button
-    setTimeout(() => {
-      document.getElementById('normalActions').classList.remove('hidden');
-      document.getElementById('drinkBtn').classList.add('hidden');
-      state.waitingForNext = true;
-    }, 600);
+    // Auto-advance to next card after showing the result
+    setTimeout(() => advanceCard(), 2000);
   }
 }
 
 // ============================================================
 // ROUND PROGRESSION
 // ============================================================
-function nextRound() {
-  state.round++;
+function advanceCard() {
+  if (state.advancing) return;
+  state.advancing = true;
 
-  // Update progress
-  const pct = ((state.round - 1) / state.totalRounds) * 100;
-  document.getElementById('progressBar').style.width = pct + '%';
-  document.getElementById('roundNum').textContent = state.round;
+  const gameCard = document.getElementById('gameCard');
+  gameCard.classList.add('leaving');
 
-  // Check for spicy zone transition
-  if (state.round === state.spicyStart && !state.isSpicy) {
-    showSpicyTransition();
-    return;
-  }
+  setTimeout(() => {
+    state.round++;
 
-  // Check game end
-  if (state.round > state.totalRounds) {
-    endGame();
-    return;
-  }
+    // Update progress bar & round number
+    const pct = ((state.round - 1) / state.totalRounds) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('roundNum').textContent = state.round;
 
-  // Reset drink button
-  document.getElementById('drinkBtn').classList.remove('hidden');
-  dealNextCard();
+    // Spicy zone transition
+    if (state.round === state.spicyStart && !state.isSpicy) {
+      showSpicyTransition();
+      return;
+    }
+
+    // Game over
+    if (state.round > state.totalRounds) {
+      endGame();
+      return;
+    }
+
+    dealNextCard();
+  }, 300);
 }
 
 function showSpicyTransition() {
@@ -811,8 +798,7 @@ function resetGame() {
   state.isSpicy = false;
   state.usedWarmup = [];
   state.usedSpicy = [];
-  state.cardRevealed = false;
-  state.waitingForNext = false;
+  state.advancing = false;
 
   // Update UI names
   document.getElementById('voteItalianName').textContent = state.italianName;
@@ -826,7 +812,6 @@ function resetGame() {
   document.getElementById('progressBar').style.width = '0%';
   document.getElementById('zoneBadge').textContent = 'Warm-Up Zone 🌶';
   document.getElementById('zoneBadge').classList.remove('spicy');
-  document.getElementById('drinkBtn').classList.remove('hidden');
 
   dealNextCard();
 }
@@ -850,35 +835,11 @@ document.addEventListener('DOMContentLoaded', () => {
     resetGame();
   });
 
-  // Card tap — reveal
-  document.getElementById('cardContainer').addEventListener('click', () => {
-    if (!state.cardRevealed && !state.waitingForNext) {
-      revealCard();
-    }
-  });
+  // NEXT button — advance to next card
+  document.getElementById('nextBtn').addEventListener('click', () => advanceCard());
 
-  // NEXT button
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    if (!state.cardRevealed) {
-      revealCard();
-      return;
-    }
-    // Animate leaving
-    const gameCard = document.getElementById('gameCard');
-    gameCard.classList.add('leaving');
-    setTimeout(() => {
-      gameCard.classList.remove('leaving');
-      nextRound();
-    }, 320);
-  });
-
-  // CHICKEN OUT button
+  // CHICKEN OUT — add sips then hide button (card stays visible)
   document.getElementById('drinkBtn').addEventListener('click', () => {
-    if (!state.cardRevealed) {
-      revealCard();
-      return;
-    }
-    // Add 2 sips to both
     updateSips('both', 2);
     document.getElementById('drinkBtn').classList.add('hidden');
   });
@@ -938,12 +899,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') document.getElementById('irishName').focus();
   });
 
-  // Touch feedback on card
-  const cardContainer = document.getElementById('cardContainer');
-  cardContainer.addEventListener('touchstart', () => {
-    cardContainer.style.transform = 'scale(0.98)';
-  }, { passive: true });
-  cardContainer.addEventListener('touchend', () => {
-    cardContainer.style.transform = '';
-  }, { passive: true });
+  // Touch feedback on Next Card button
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.addEventListener('touchstart', () => { nextBtn.style.transform = 'scale(0.97)'; }, { passive: true });
+  nextBtn.addEventListener('touchend',   () => { nextBtn.style.transform = ''; }, { passive: true });
 });
