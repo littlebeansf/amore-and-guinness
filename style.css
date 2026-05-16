@@ -732,6 +732,54 @@ input[type=range]::-moz-range-thumb {
   flex-shrink: 0;
 }
 
+/* Drink rule callout */
+.card-drink-rule {
+  margin-top: 14px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,0.07);
+  border-left: 3px solid var(--card-accent, #f0c060);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--card-accent, #f0c060);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  align-self: stretch;
+}
+.card-drink-rule.hidden { display: none; }
+
+/* Timer */
+.card-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0.9;
+}
+.card-timer.hidden { display: none; }
+.card-timer #timerDisplay {
+  font-variant-numeric: tabular-nums;
+  min-width: 2ch;
+  text-align: right;
+}
+.card-timer .timer-label {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  font-weight: 500;
+}
+.card-timer.urgent #timerDisplay {
+  color: #ff6060;
+  animation: timerPulse 0.5s ease-in-out infinite alternate;
+}
+@keyframes timerPulse {
+  from { transform: scale(1); }
+  to   { transform: scale(1.12); }
+}
+
 /* ===== ACTION AREA ===== */
 .action-area {
   padding: 0 var(--space-6) var(--space-4);
