@@ -10,100 +10,99 @@ const CARDS = {
   // ── WARM-UP (rounds 1→warmupEnd) ─────────────────────────
   warmup: [
 
-    // CHALLENGES
+    // CHALLENGES (12+)
     {
       type: 'challenge',
-      text: 'Do your best Italian hand gesture to express "I have absolutely no idea what you\'re talking about." If {irish} can\'t guess it — they drink.',
-      target: 'italian',
-      drinkRule: 'Wrong guess? {irish} takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Say "ah sure look, it\'ll be grand" with full conviction. {italian} judges on a scale of 1–10. Under 6? Drink.',
+      text: 'Show {italian} your camera roll from exactly 3 years ago today. No curating. Whatever\'s there, is there. {italian} reacts out loud.',
       target: 'irish',
-      drinkRule: 'Under 6/10? {irish} takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Order a Negroni sbagliato in Italian. One butchered pronunciation = 1 sip. {italian} is the judge.',
-      target: 'irish',
-      drinkRule: 'Adjust sips using the buttons below.',
+      drinkRule: 'Anything embarrassing? {irish} takes 1 sip per cringeworthy photo.',
       sipsOpen: true,
     },
     {
       type: 'challenge',
-      text: 'Both players: name 3 pasta shapes in 10 seconds, no repeats. First to blank drinks.',
-      target: 'both',
-      timer: 10,
-      drinkRule: 'First to blank takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Hum the first 4 bars of the Italian national anthem. {irish} must stand to attention. Fail? Drink.',
+      text: 'Do your best impression of {irish}\'s accent right now. {irish} rates it 1–10. Under 5 means you drink.',
       target: 'italian',
-      drinkRule: 'Fail the hum? {italian} takes 2 sips.',
+      drinkRule: 'Under 5/10? {italian} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Explain to {italian} what a Centra meal deal is and why it changed lives. If they\'re still confused — you drink.',
-      target: 'irish',
-      drinkRule: 'Still confused? {irish} takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Sip your drink and hold eye contact for 5 full seconds. First to look away drinks.',
-      target: 'both',
-      timer: 10,
-      drinkRule: 'First to look away takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Name 5 European capitals in 10 seconds. Drink 1 sip for each one missed.',
-      target: 'both',
-      timer: 10,
+      text: 'Show {irish} your camera roll from exactly 3 years ago today. No curating. {irish} picks the most chaotic photo and describes it.',
+      target: 'italian',
+      drinkRule: 'Anything embarrassing? {italian} takes 1 sip per cringeworthy photo.',
       sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
     },
     {
       type: 'challenge',
-      text: 'In the most convincing Irish mammy voice you have, say: "I\'m not angry, I\'m just disappointed." {irish} rates it out of 10. Under 6? Drink.',
+      text: 'Do your best impression of {italian}\'s accent. {italian} rates it 1–10. Under 5? You\'re drinking.',
+      target: 'irish',
+      drinkRule: 'Under 5/10? {irish} takes 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Name 5 Italian pasta shapes in 10 seconds. {italian} is judge. Wrong or blanked? 1 sip per miss.',
+      target: 'irish',
+      timer: 10,
+      drinkRule: '1 sip per missed pasta. Max 5 sips.',
+      sipsOpen: true,
+    },
+    {
+      type: 'challenge',
+      text: 'Say "ah sure look, it\'ll be grand" with full Irish conviction. {italian} scores it 1–10. Under 6? Drink.',
       target: 'italian',
       drinkRule: 'Under 6/10? {italian} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Describe "dolce far niente" to {irish} without using the word "relax". 30 seconds. Fail? Drink.',
+      text: 'Both players: recreate your most iconic school photo pose simultaneously. Right now. No prep. The more accurate the fringe, the better.',
+      target: 'both',
+      drinkRule: 'Whoever breaks first or laughs first takes 1 sip.',
+    },
+    {
+      type: 'challenge',
+      text: 'Explain what a Centra meal deal is to {italian} as if it\'s a Michelin-starred dining experience. Give it the reverence it deserves.',
+      target: 'irish',
+      drinkRule: 'Not reverent enough? {irish} takes 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Order a Negroni Sbagliato in the most theatrical Italian you can manage. {italian} judges pronunciation. One butchered syllable = 1 sip.',
+      target: 'irish',
+      drinkRule: 'Adjust sips using the buttons below.',
+      sipsOpen: true,
+    },
+    {
+      type: 'challenge',
+      text: 'In your best Italian hand-gesture vocabulary, express "I have absolutely no idea what you\'re talking about." {irish} must guess the meaning.',
       target: 'italian',
-      timer: 30,
-      drinkRule: 'Fail? {italian} takes 2 sips.',
+      drinkRule: '{irish} guesses wrong? {irish} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Recreate your most iconic Bebo profile photo pose. Right now. Other player scores it. Under 5? Drink.',
-      target: 'both',
-      drinkRule: 'Under 5/10? That player takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Quote one MSN Messenger away message you actually used. "Linkin Park lyrics" counts. Fail? Drink 2.',
-      target: 'both',
-      drinkRule: 'Can\'t remember one? Take 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Both players name a song from FIFA 06 soundtrack simultaneously. Match? Both skip a sip. No match? Both drink.',
+      text: 'Both players: name a song from the FIFA 06 soundtrack simultaneously. Same song? Both skip a sip. No match? Both drink.',
       target: 'both',
       drinkRule: 'No match? Both take 1 sip.',
     },
     {
       type: 'challenge',
-      text: 'Explain the Distracted Boyfriend meme to someone who\'s never seen the internet. 20 seconds. {italian} judges whether the description lands.',
-      target: 'irish',
-      timer: 20,
-      drinkRule: 'Doesn\'t land? {irish} takes 2 sips.',
+      text: 'Recreate your most authentic Bebo-era profile photo pose. Right now. Other player scores it out of 10. Under 5? Drink.',
+      target: 'both',
+      drinkRule: 'Under 5/10? That player takes 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: '{italian}: describe "dolce far niente" to {irish} in 30 seconds without using the word "relax". Fail? Drink.',
+      target: 'italian',
+      timer: 30,
+      drinkRule: 'Used "relax"? {italian} takes 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Quote an actual MSN Messenger away message you used circa 2007. Linkin Park lyrics count. Can\'t remember one? Drink 2.',
+      target: 'both',
+      drinkRule: 'Can\'t recall one? Take 2 sips.',
     },
 
-    // TRUTHS
+    // TRUTHS (10+)
     {
       type: 'truth',
       text: 'What\'s the most embarrassing thing you\'ve Googled in the last week? Full honesty or drink 3.',
@@ -112,89 +111,77 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: What Italian stereotype about yourself is 100% accurate? Own it or drink.',
+      text: '{italian}: which Italian stereotype about yourself is 100% accurate? Own it out loud.',
       target: 'italian',
       drinkRule: 'Won\'t own it? {italian} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: What Irish stereotype about yourself is embarrassingly true? "Yeah the tea thing" is a valid answer but you still have to confirm it.',
+      text: '{irish}: which Irish stereotype about yourself is embarrassingly true? "The tea thing" counts but you still have to say it.',
       target: 'irish',
       drinkRule: 'Won\'t confirm it? {irish} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: 'What was your celebrity crush at age 12? The cringe rating determines who drinks.',
+      text: 'What was your celebrity crush at age 12? The more chaotic, the better. Most cringe answer has to take 2 sips.',
       target: 'both',
-      drinkRule: 'Most cringe answer takes 2 sips.',
+      drinkRule: 'Most cringeworthy answer takes 2 sips.',
     },
     {
       type: 'truth',
-      text: 'Confess: what\'s on your Spotify Wrapped that you\'d never admit to in public? Answer honestly or drink 3.',
+      text: 'What\'s on your Spotify that you\'d die if someone saw? No vague answers. Name the song.',
       target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
+      drinkRule: 'Dodge it or go vague? Take 3 sips.',
     },
     {
       type: 'truth',
-      text: 'Be honest — what\'s your go-to excuse when you cancel plans? Extra drink if you\'ve used it this week.',
+      text: 'What\'s your most-used excuse when you cancel plans? Extra sip if you\'ve used it in the last two weeks.',
       target: 'both',
-      drinkRule: 'Used it this week? Take 1 extra sip.',
+      drinkRule: 'Used it recently? Take 1 extra sip.',
     },
     {
       type: 'truth',
-      text: '{irish}: Is a Tayto crisp sandwich objectively good? {italian} must listen with an open mind and cannot interrupt.',
-      target: 'irish',
-      drinkRule: 'No sips — just honest advocacy.',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: Have you ever pretended to be Spanish to avoid explaining Italy to someone? Judgment-free zone.',
+      text: '{italian}: have you ever pretended to be from Spain to avoid explaining Italy? Judgment-free zone. Completely.',
       target: 'italian',
       drinkRule: 'Refuse to answer? {italian} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: 'What emo / scene / Tumblr-girl / skater phase did you go through in secondary school that you\'re quietly grateful you outgrew?',
-      target: 'both',
-      drinkRule: 'No sips — but own it completely.',
-    },
-    {
-      type: 'truth',
-      text: 'Did you have a Habbo Hotel account? What was your username? No username — drink 1 as punishment for a deprived childhood.',
+      text: 'Did you have a Habbo Hotel account? What was the username? No account? Drink 1 for a deprived childhood.',
       target: 'both',
       drinkRule: 'No account? Take 1 sip for the loss.',
     },
     {
       type: 'truth',
-      text: 'What\'s the most ridiculous thing you downloaded on Limewire? Admit it.',
+      text: 'What\'s the most ridiculous thing you downloaded on Limewire? Exact song title, please. Refuse? Drink 2.',
       target: 'both',
       drinkRule: 'Refuse to admit it? Take 2 sips.',
     },
     {
       type: 'truth',
-      text: 'What\'s a show you secretly binge-watched and told nobody about? Points for the more chaotic confession.',
+      text: 'What emo / scene / Tumblr phase did you go through in secondary school that you\'re quietly grateful you outgrew?',
       target: 'both',
-      drinkRule: 'Most embarrassing confession skips a sip.',
+      drinkRule: 'Refuse to own it? Take 1 sip.',
     },
     {
       type: 'truth',
-      text: 'Be honest: do you actually like Guinness, or is it just an identity choice at this point?',
+      text: 'What\'s the most controversial food opinion you hold? The other person must sit in silence for 5 full seconds after hearing it.',
       target: 'both',
-      drinkRule: 'No sips — just pure honesty required.',
+      drinkRule: 'React in under 5 seconds? Take 1 sip.',
     },
     {
       type: 'truth',
-      text: 'What\'s a food your mum made growing up that you know is deeply unglamorous but would still eat right now?',
+      text: 'What\'s a show you secretly binge-watched and told absolutely nobody about? Most embarrassing confession skips a sip.',
       target: 'both',
-      drinkRule: 'No sips — this is a comfort food vibe check.',
+      drinkRule: 'Most embarrassing answer skips their next sip.',
     },
 
-    // VOTES
+    // VOTES (6)
     {
       type: 'vote',
-      text: 'Who would survive longer on a desert island?',
-      prompt: 'Who would survive longer on a desert island?',
-      loser_drinks: 1,
+      text: 'Who would be more chaotic on a first date abroad?',
+      prompt: 'More chaotic on a first date abroad?',
+      loser_drinks: 2,
       target: 'both',
     },
     {
@@ -206,341 +193,345 @@ const CARDS = {
     },
     {
       type: 'vote',
-      text: 'Who spends more time getting ready?',
+      text: 'Who spends longer getting ready — honestly?',
       prompt: 'Who takes longer to get ready?',
       loser_drinks: 1,
       target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who would win MasterChef, home-country advantage allowed?',
-      prompt: 'Who wins MasterChef (home-country rules)?',
+      text: 'Who would win MasterChef with home-country advantage?',
+      prompt: 'Who wins MasterChef (home rules)?',
       loser_drinks: 1,
       target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who\'s more likely to accidentally start a diplomatic incident abroad?',
+      text: 'Who is more likely to accidentally cause a diplomatic incident abroad?',
       prompt: 'More likely to cause an international incident?',
-      loser_drinks: 1,
+      loser_drinks: 2,
       target: 'both',
     },
     {
       type: 'vote',
       text: 'Who talks to strangers more easily?',
-      prompt: 'Talks to strangers more easily?',
+      prompt: 'Better with strangers?',
       loser_drinks: 1,
       target: 'both',
     },
 
-    // COUPLE
+    // COUPLE (5)
     {
       type: 'couple',
-      text: 'Each teach the other one phrase from your language that you\'d only use at home. Pronunciation matters. Mock each other freely.',
+      text: 'Each teach the other one phrase from your native language that you\'d only say at home — something untranslatable. Mock each other\'s pronunciation freely.',
       target: 'both',
-      drinkRule: 'No sips — just do it together.',
+      drinkRule: 'Worst pronunciation? That person takes 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Quick debate: Pizza vs. fish & chips. 90 seconds each. Most convincing argument wins a sip-skip.',
+      text: 'Quick debate: pizza vs. fish and chips. 60 seconds each to make the case. Most convincing argument wins a sip-skip.',
       target: 'both',
       timer: 30,
-      drinkRule: 'Least convincing argument? Take 1 sip.',
+      drinkRule: 'Less convincing argument? Take 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Both close your eyes and simultaneously shout one 2000s pop song. Same song? Both skip a sip. Different song? You both drink.',
+      text: 'Both close your eyes and simultaneously shout one 2000s pop song title. Same song? Both skip a sip. Different song? Both drink.',
       target: 'both',
       drinkRule: 'Different songs? Both take 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Spend 30 seconds complimenting each other, non-physical things only. First one to laugh nervously or go awkwardly vague drinks.',
+      text: '30 seconds of complimenting each other — non-physical things only. First one to laugh awkwardly, go silent, or give a vague answer drinks.',
       target: 'both',
       timer: 30,
       drinkRule: 'First to crack or go vague takes 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Take turns describing your perfect Sunday morning in your home country. Most vivid description skips their next drink.',
+      text: 'Take turns describing your perfect Sunday morning in your home country. Most vivid, specific, sensory description skips their next drink.',
       target: 'both',
       drinkRule: 'Less vivid description? Take 1 sip.',
     },
 
-    // NOSTALGIA
+    // NOSTALGIA (6)
     {
       type: 'nostalgia',
-      text: 'Name the first console you played on. If it was a PlayStation 2, you both drink in solidarity.',
+      text: 'Name the first console you ever played. If it was a PlayStation 2, you both drink in solidarity.',
       target: 'both',
-      drinkRule: 'PS2 players? Both take 1 sip in solidarity.',
+      drinkRule: 'PS2 veterans? Both take 1 sip. Any other answer? 1 sip for the liar.',
     },
     {
       type: 'nostalgia',
-      text: 'What was your MSN Messenger status in 2008? "xXx broken_wings xXx" and Yellowcard lyrics are both valid. Confess.',
+      text: 'What was your MSN Messenger status in 2008? "xXx broken_wings xXx" and Yellowcard lyrics are both valid confessions.',
       target: 'both',
-      drinkRule: 'Cringe status? Take 1 sip and own it.',
+      drinkRule: 'Refuses to confess? Take 1 sip.',
     },
     {
       type: 'nostalgia',
-      text: 'Who was your early YouTube icon? Charlie Bit My Finger, Chocolate Rain, Fred Figglehorn? Tell the story.',
+      text: 'What did you spend your Leaving Cert or Maturità money on? Compare answers. The more ridiculous purchase drinks.',
       target: 'both',
-      drinkRule: 'No sips — just nostalgia.',
+      drinkRule: 'Most ridiculous purchase? Take 2 sips.',
     },
     {
       type: 'nostalgia',
-      text: 'What was the stupidest thing you bought with your Leaving Cert / Maturità money? First to answer drinks if it was dumber than the other\'s.',
+      text: 'Hannah Montana, High School Musical, or Lizzie McGuire? One shaped you. Which one? Own it.',
       target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
+      drinkRule: 'Refuses to answer? Take 1 sip.',
     },
     {
       type: 'nostalgia',
-      text: 'Hannah Montana, High School Musical, or Lizzie McGuire? One shaped your childhood. Own it.',
+      text: 'Name a childhood comfort food that means nothing to the other person\'s culture. They drink if they\'ve genuinely never heard of it.',
       target: 'both',
-      drinkRule: 'No sips — but own it.',
+      drinkRule: 'Never heard of it? That person takes 1 sip.',
     },
     {
       type: 'nostalgia',
-      text: 'Name a childhood comfort food that means nothing to the other person\'s culture. They drink if they\'ve never heard of it.',
+      text: 'Did you have a MySpace? Who was in your Top 8? Did anyone get hurt over that list? Be honest.',
       target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
-    },
-    {
-      type: 'nostalgia',
-      text: 'Recreate your school photo pose circa age 11. Both do it simultaneously. No prep.',
-      target: 'both',
-      drinkRule: 'No sips — just the pure cringe.',
+      drinkRule: 'Someone got hurt? Take 1 sip of guilt.',
     },
 
-    // WILD
+    // WILD (6)
     {
       type: 'wild',
-      text: 'NPC mode for 30 seconds — both players must respond to everything said as if you\'re a background NPC in a video game. First one to break character drinks.',
+      text: 'NPC mode: for 30 seconds, both players must respond to everything as if you\'re background NPCs in a video game. Wooden expressions. Scripted replies. First to break character drinks.',
       target: 'both',
       timer: 30,
       drinkRule: 'First to break character takes 2 sips.',
     },
     {
       type: 'wild',
-      text: 'You both have main character energy right now. Narrate the last 60 seconds of this evening as if it\'s a movie voiceover. Who does it better? Loser drinks.',
+      text: 'Both players: describe tonight so far as a Spotify Wrapped top artist — one artist, and why that artist specifically. Weirder = better.',
       target: 'both',
-      timer: 60,
-      drinkRule: 'Worse voiceover? Take 2 sips.',
+      drinkRule: 'Most boring choice? Take 1 sip.',
     },
     {
-      type: 'nostalgia',
-      text: 'Did you have a MySpace? What was in your Top 8? Anyone get hurt over that list? Be honest.',
-      target: 'both',
-      drinkRule: 'No sips — but own any drama you caused.',
-    },
-    {
-      type: 'challenge',
+      type: 'wild',
       text: 'Demonstrate the exact noise your phone made when you got an MSN message notification in 2007. Other player drinks if they recognise it instantly.',
       target: 'both',
       drinkRule: 'Recognised it instantly? Other player takes 1 sip.',
     },
     {
-      type: 'truth',
-      text: 'What\'s your most controversial food opinion? The other person must not react for a full 5 seconds after hearing it.',
+      type: 'wild',
+      text: '{italian} describes their ideal Sunday using only Italian words. {irish} must try to understand from context alone. No translating for 45 seconds.',
       target: 'both',
-      drinkRule: 'React in under 5 seconds? Take 1 sip.',
-    },
-    {
-      type: 'couple',
-      text: '{italian} describes their ideal Sunday using only Italian words. {irish} must try to understand from context alone. No translation allowed for 60 seconds.',
-      target: 'both',
-      timer: 60,
+      timer: 45,
       drinkRule: 'Completely lost? {irish} takes 1 sip.',
     },
+    {
+      type: 'wild',
+      text: 'Both players: pick the most "touch grass immediately" opinion you\'ve seen online this week. Most unhinged answer wins. The tamer answer takes 1 sip.',
+      target: 'both',
+      drinkRule: 'Less unhinged answer? Take 1 sip.',
+    },
+    {
+      type: 'wild',
+      text: 'What\'s the first thing you actually thought when you saw the other person tonight? Not the edited version — the real first thought. Say it.',
+      target: 'both',
+      drinkRule: 'Clearly filtered their answer? Take 2 sips.',
+    },
 
-    // MINI-GAMES
-    { type: 'wild', text: 'TAP RACE! 👆 First to 20 taps wins — loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
-    { type: 'wild', text: 'STARE CONTEST 👀 First to blink or look away — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
+    // MINI-GAMES (2 tap_race + 2 stare)
+    { type: 'wild', text: 'TAP RACE! 👆 Fastest fingers in Italy vs Ireland. First to 20 taps wins. Loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
+    { type: 'wild', text: 'TAP RACE ROUND 2! 💥 Rematch energy. Same rules. Different vibes. Loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
+    { type: 'wild', text: 'STARE CONTEST 👀 Hold eye contact. No smiling. No looking away. First to blink — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
+    { type: 'wild', text: 'STARE CONTEST ROUND 2 👁️ Second attempt. More tension now. First to break — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
   ],
 
   // ── SPICY ZONE (rounds warmupEnd+1 → spicyEnd) ───────────
   spicy: [
 
-    // CHALLENGES
+    // CHALLENGES (14+)
     {
       type: 'challenge',
-      text: 'Show each other the 7th photo in your camera roll. No deleting beforehand. If it\'s awkward — both drink.',
+      text: 'Show each other the 7th photo in your camera roll. Right now. No curating, no deleting. If it\'s an ex — drink 3.',
       target: 'both',
-      drinkRule: 'Awkward photo? Both take 2 sips.',
+      drinkRule: 'Ex in the photo? That person takes 3 sips. Just awkward? Both take 1.',
     },
     {
       type: 'challenge',
-      text: 'Text your mum right now: "Ti voglio bene" or "Thinking of ya, Ma" depending on nationality. Screenshot or it didn\'t happen.',
-      target: 'both',
-      drinkRule: 'Don\'t send it? Take 3 sips.',
+      text: 'What\'s the most attractive thing {italian} has done tonight without realising it? Be specific. "Just being themselves" is not an answer.',
+      target: 'irish',
+      drinkRule: 'Vague answer or cop-out? {irish} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Compliment {irish} in the most dramatic Italian telenovela style you can manage. Use hands. Use pauses. Use the drama. {irish} must fan themselves if convinced.',
+      text: 'What\'s the most attractive thing {irish} has done tonight without realising it? Be specific. No hiding behind irony.',
+      target: 'italian',
+      drinkRule: 'Vague answer or cop-out? {italian} takes 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Open Instagram. Find your most-liked post. Who was the first person to like it? If it\'s an ex — drink 2.',
+      target: 'both',
+      drinkRule: 'Ex liked it first? Take 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {irish} a voice note right now saying something you\'d normally only think. Record it before you second-guess it. Don\'t send? Drink 3.',
+      target: 'italian',
+      drinkRule: 'Don\'t send it? {italian} takes 3 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {italian} a voice note right now saying something you\'d normally only think. Record it. Don\'t pre-plan it. Don\'t send? Drink 3.',
+      target: 'irish',
+      drinkRule: 'Don\'t send it? {irish} takes 3 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Show your most-used emoji in the last month. Both players check. Whoever\'s is more revealing about their emotional state drinks.',
+      target: 'both',
+      drinkRule: 'More emotionally exposed emoji? Take 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Stare at each other in complete silence for 30 seconds. First to smile drinks 1. First to speak doubles their sips.',
+      target: 'both',
+      timer: 30,
+      drinkRule: 'First to smile: 1 sip. First to speak: 2 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Compliment {irish} in the most dramatic Italian telenovela style imaginable. Use your hands. Use pauses. Use the drama. {irish} must fan themselves if convinced.',
       target: 'italian',
       drinkRule: '{irish} not convinced? {italian} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Recreate your most attractive selfie face. Right now. Zero prep. Other player votes "post" or "delete." Delete? Drink 2.',
+      text: 'Open your most recent text thread with your closest friend. Read the last thing you said — out loud. Don\'t sanitise it. Refuse? Drink 3.',
       target: 'both',
-      drinkRule: '"Delete" vote? That player takes 2 sips.',
+      drinkRule: 'Refuse to read it? Take 3 sips.',
     },
     {
       type: 'challenge',
-      text: 'Stare at each other in complete silence for 30 seconds. First to smile drinks. First to say anything doubles it.',
+      text: 'Touch the other person\'s hand for 10 seconds. Maintain eye contact the entire time. First to look away or pull back drinks.',
       target: 'both',
-      timer: 30,
-      drinkRule: 'First to smile takes 1 sip. First to speak takes 2.',
+      timer: 10,
+      drinkRule: 'First to break contact or look away takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Freestyle rap about this evening — minimum 4 lines. Alternate. No rhyme = 1 sip each.',
+      text: 'Both scroll to the last time you checked someone\'s Instagram without following them. Who were you checking? Most suspicious answer drinks.',
       target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
+      drinkRule: 'Most suspicious answer takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Post a BeReal right now — no filter, no repositioning. Whoever takes longest to hit post drinks.',
+      text: 'Post a BeReal right now. No repositioning, no filter, no waiting for better lighting. Whoever takes longest to hit post drinks.',
       target: 'both',
       drinkRule: 'Slowest to post takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'You have 60 seconds to explain the Roman Empire meme to someone who\'s never heard of it. {italian}, you will not be allowed to look smug. {irish} judges how convincing it is.',
+      text: 'Both scroll to your last unread DM request. Whoever has the weirder one drinks. Screenshots optional but strongly encouraged.',
       target: 'both',
-      timer: 60,
-      drinkRule: 'Not convincing? {irish} decides who drinks 2.',
+      drinkRule: 'Weirder DM request? Take 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Talk about {irish} for 60 seconds using only compliments. No pausing. No filler. Hesitate? Drink.',
-      target: 'italian',
-      timer: 60,
-      drinkRule: 'Hesitate or pause? {italian} takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Talk about {italian} for 60 seconds using only compliments. No pausing. No filler. Hesitate? Drink.',
-      target: 'irish',
-      timer: 60,
-      drinkRule: 'Hesitate or pause? {irish} takes 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Both scroll to your most recent "we need to talk" text or its cultural equivalent. Whoever had it more recently drinks 2.',
+      text: 'Open Spotify. Show your "On Repeat" playlist to the other person. First 3 songs, out loud. Drink 1 per song you\'re embarrassed about.',
       target: 'both',
-      drinkRule: 'Most recent "we need to talk"? Take 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Open Duolingo right now. How many days is your streak? Shorter streak? That person drinks. No streak? Drink 3.',
-      target: 'both',
-      sipsOpen: true,
       drinkRule: 'Adjust sips using the buttons below.',
-    },
-    {
-      type: 'challenge',
-      text: 'Both of you: describe tonight so far as a Spotify Wrapped top artist — one artist, and why. The weirder the choice, the better. Loser of the vibe contest drinks.',
-      target: 'both',
-      drinkRule: 'Lost the vibe contest? Take 2 sips.',
+      sipsOpen: true,
     },
 
-    // TRUTHS
+    // TRUTHS (12+)
     {
       type: 'truth',
-      text: 'What\'s the first thing you noticed about the other person tonight? Real answer or drink 3.',
+      text: 'What\'s the first thing you noticed about the other person tonight? Real answer. Not "your smile". Actual first thing. Drink 3 if you dodge it.',
       target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
+      drinkRule: 'Dodge it or go vague? Take 3 sips.',
     },
     {
       type: 'truth',
-      text: '{italian}: What\'s something about Irish culture you actually find really attractive? No diplomatic non-answers.',
-      target: 'italian',
-      drinkRule: 'Diplomatic non-answer? {italian} takes 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: '{irish}: What\'s something about Italian culture that genuinely makes you want to move there? Be specific.',
-      target: 'irish',
-      drinkRule: 'Not specific enough? {irish} takes 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s a red flag you\'ve been ignoring about yourself recently? 10 seconds to think, then answer — or drink 3.',
+      text: 'What\'s your body count? Both answer. Whoever guesses the other\'s number closer wins. The one furthest off drinks 3.',
       target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
+      drinkRule: 'Furthest from the other\'s number? Take 3 sips.',
     },
     {
       type: 'truth',
-      text: 'What\'s the most unexpected thing you find attractive in the other person right now?',
+      text: 'What\'s your most irrational deal-breaker in a relationship? The more specific and unhinged, the better. Too vague? Drink 1.',
       target: 'both',
-      drinkRule: 'Refuse to answer? Take 2 sips.',
+      drinkRule: 'Too vague or boring? Take 1 sip and try again.',
     },
     {
       type: 'truth',
-      text: 'Describe yourself in a "That\'s giving..." statement. The other person adds the last word.',
+      text: 'What\'s the boldest thing you\'ve ever done to get someone\'s attention romantically? Did it work? Be specific.',
       target: 'both',
-      drinkRule: 'No sips — this is a vibe check.',
+      drinkRule: 'Didn\'t work? Take 1 sip for the loss.',
     },
     {
       type: 'truth',
-      text: 'What\'s your most irrational dealbreaker in a relationship? The more specific and unhinged, the better.',
-      target: 'both',
-      drinkRule: 'Too vague or boring? Take 1 sip.',
-    },
-    {
-      type: 'truth',
-      text: 'If you could relive one night from your early 20s, which night would it be and who would definitely be there?',
-      target: 'both',
-      drinkRule: 'No sips — just honesty.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the boldest thing you\'ve done to impress someone? Did it work?',
-      target: 'both',
-      drinkRule: 'Didn\'t work? Take 1 sip for the pain.',
-    },
-    {
-      type: 'truth',
-      text: 'Describe the other person in 3 words you\'d never say out loud sober. You\'re saying them now.',
+      text: 'Describe the other person in 3 words you\'d never say out loud sober. You\'re saying them now. Refuse? Drink 3.',
       target: 'both',
       drinkRule: 'Refuse to say them? Take 3 sips.',
     },
     {
       type: 'truth',
-      text: 'When did you last genuinely live in your "villain era" and what had you done?',
+      text: 'What\'s a red flag you\'ve been ignoring about yourself in relationships recently? 10 seconds to think, then answer. Dodge it? Drink 3.',
+      target: 'both',
+      drinkRule: 'Dodge it? Take 3 sips.',
+    },
+    {
+      type: 'truth',
+      text: '{italian}: What\'s something about Irish culture you actually find genuinely attractive — not just tolerable? Be specific.',
+      target: 'italian',
+      drinkRule: 'Diplomatic non-answer? {italian} takes 2 sips.',
+    },
+    {
+      type: 'truth',
+      text: '{irish}: What\'s something about Italian culture that makes you want to move there immediately? Not "the food." Something specific.',
+      target: 'irish',
+      drinkRule: 'Says "the food"? {irish} takes 2 sips and tries again.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a phrase that lives rent-free in your head from a past relationship? You don\'t have to explain the context — just say it out loud.',
+      target: 'both',
+      drinkRule: 'Won\'t say it? Take 2 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'When did you last genuinely live in your villain era — and what had you done? No sanitising.',
       target: 'both',
       drinkRule: 'Dodge the details? Take 2 sips.',
     },
     {
       type: 'truth',
-      text: 'What\'s living in your head rent-free lately? Could be a person, a decision, a text you drafted and deleted.',
-      target: 'both',
-      drinkRule: 'Refuse to share? Take 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'Be honest — what\'s your love language, and do you actually do it, or do you just say it in a quiz?',
-      target: 'both',
-      drinkRule: 'Just say it in a quiz? Take 1 sip of honesty.',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: How often do you think about the Roman Empire — actually? Answer and {irish} decides if it\'s normal or concerning.',
+      text: '{italian}: what does Sunday family lunch actually represent for you emotionally? This is not a small question. Answer properly.',
       target: 'italian',
-      drinkRule: '{irish} finds it concerning? {italian} takes 2 sips.',
+      drinkRule: 'Surface-level answer? {italian} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: What\'s the most "delulu" plan you\'ve actually acted on in the last year? Did it end well?',
+      text: '{irish}: what\'s a phrase your mammy says that has leaked into your everyday vocabulary against your will? Say it. In her voice.',
       target: 'irish',
-      drinkRule: 'Didn\'t end well? {irish} takes 1 sip.',
+      drinkRule: 'Refuses the mammy voice? {irish} takes 2 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most embarrassing dating app conversation you\'ve ever had? Specific details required. No "I deleted it" excuses. Drink 3.',
+      target: 'both',
+      drinkRule: 'Refuse to share? Take 3 sips.',
     },
 
-    // VOTES
+    // VOTES (6)
+    {
+      type: 'vote',
+      text: 'Who would text "I miss you" at 3am first?',
+      prompt: 'Texts "I miss you" at 3am first?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who is the bigger overthinker in relationships?',
+      prompt: 'Bigger overthinker in relationships?',
+      loser_drinks: 2,
+      target: 'both',
+    },
     {
       type: 'vote',
       text: 'Who would be the more chaotic travel companion?',
@@ -550,130 +541,115 @@ const CARDS = {
     },
     {
       type: 'vote',
-      text: 'Who\'s the bigger overthinker in relationships?',
-      prompt: 'Bigger overthinker in relationships?',
-      loser_drinks: 2,
-      target: 'both',
-    },
-    {
-      type: 'vote',
-      text: 'Who would send the "miss you" text first?',
-      prompt: 'Sends "miss you" first?',
-      loser_drinks: 2,
-      target: 'both',
-    },
-    {
-      type: 'vote',
-      text: 'Who\'s more charming with strangers in a first impression?',
+      text: 'Who is more charming on a first impression with strangers?',
       prompt: 'More charming on first impression?',
       loser_drinks: 2,
       target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who would be more dangerous as a villain?',
-      prompt: 'More dangerous as a villain?',
-      loser_drinks: 1,
+      text: 'Who is more likely to have left someone on read for 3+ days and then replied as if nothing happened?',
+      prompt: 'More likely to ghost then resurface?',
+      loser_drinks: 2,
       target: 'both',
     },
     {
       type: 'vote',
-      text: 'Who\'s the CEO of overthinking things that haven\'t happened yet?',
-      prompt: 'CEO of pre-emptive overthinking?',
-      loser_drinks: 2,
+      text: 'Who would fall first in this situation?',
+      prompt: 'Who falls first?',
+      loser_drinks: 3,
       target: 'both',
     },
 
-    // COUPLE
+    // COUPLE (6)
     {
       type: 'couple',
-      text: 'Pick a song right now. Both listen to 30 seconds together in silence. Then: what did you each feel, honestly?',
+      text: 'Pick a song right now. Both listen to 30 seconds together in silence. No phones, no talking. Then each say one honest thing it made you think about.',
       target: 'both',
       timer: 30,
-      drinkRule: 'No sips — just feel it.',
+      drinkRule: 'Gives a deflecting non-answer? Take 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Write each other a 6-word love letter. 30 seconds each. Read them simultaneously.',
+      text: 'Tell each other the exact moment tonight when you thought "okay, they\'re interesting." Be specific — a sentence, a gesture, a look. Not "immediately."',
+      target: 'both',
+      drinkRule: 'Vague or generic answer? Take 1 sip.',
+    },
+    {
+      type: 'couple',
+      text: 'Plan a hypothetical 48-hour trip together — pick one city neither of you has been to. Alternate one activity per turn. You have 5 turns each. Go.',
+      target: 'both',
+      drinkRule: 'Runs out of ideas first? Take 1 sip.',
+    },
+    {
+      type: 'couple',
+      text: 'Both close your eyes. Picture the other person 10 years from now. Open your eyes and describe what you saw. Don\'t edit yourself.',
+      target: 'both',
+      drinkRule: 'Too vague? Take 1 sip.',
+    },
+    {
+      type: 'couple',
+      text: 'Write each other a 6-word love letter right now. 30 seconds. Read them simultaneously out loud.',
       target: 'both',
       timer: 30,
-      drinkRule: 'No sips — just write it.',
+      drinkRule: 'Too safe or generic? Take 1 sip.',
     },
     {
       type: 'couple',
-      text: 'Tell each other the moment tonight when you thought "okay, they\'re interesting." Most specific version wins a sip-skip.',
+      text: 'What song would be playing in the movie version of this evening, right now, at this exact moment? Both answer simultaneously. Whoever\'s choice fits better wins.',
       target: 'both',
-      drinkRule: 'Less specific answer? Take 1 sip.',
-    },
-    {
-      type: 'couple',
-      text: 'Plan a hypothetical 72-hour trip together — pick one city. 4 rounds each, alternating. Add one activity per turn. Go.',
-      target: 'both',
-      drinkRule: 'No sips — just plan the perfect trip.',
-    },
-    {
-      type: 'couple',
-      text: 'Both close your eyes. Picture the other person 10 years from now. Describe what you see. Don\'t edit yourself.',
-      target: 'both',
-      drinkRule: 'No sips — just honesty.',
+      drinkRule: 'Worst soundtrack choice? Take 1 sip.',
     },
 
-    // NOSTALGIA
+    // NOSTALGIA (6)
     {
       type: 'nostalgia',
-      text: '{italian}: What Italian early 2000s banger do you still have saved somewhere but "ironically"? Confess or drink 2.',
+      text: '{italian}: What Italian early-2000s banger do you still have saved on your phone — but "ironically"? Name it. Confess or drink 2.',
       target: 'italian',
       drinkRule: 'Won\'t confess? {italian} takes 2 sips.',
     },
     {
       type: 'nostalgia',
-      text: '{irish}: Name a phrase your mammy says that has leaked into your everyday vocabulary against your will.',
-      target: 'irish',
-      drinkRule: 'No sips — just own the mammy-isms.',
+      text: 'What TV show from your childhood would genuinely horrify your adult self if you rewatched it right now?',
+      target: 'both',
+      drinkRule: 'Refuses to name one? Take 1 sip.',
     },
     {
       type: 'nostalgia',
-      text: 'What TV show from your childhood would horrify your adult self if you actually rewatched it?',
+      text: 'Quick fire: what was your most-played song on iTunes circa 2008? Both answer simultaneously. No shame here.',
       target: 'both',
-      drinkRule: 'No sips — just the horror of nostalgia.',
+      drinkRule: 'Identical answer? Both skip a sip. Different? Both take 1.',
     },
     {
       type: 'nostalgia',
-      text: 'Rate the impact on your generation: Bebo, Facebook, Vine, TikTok. 10 seconds per platform. Go.',
+      text: 'What\'s a core memory from a night out in your early 20s that you\'ve told 40 times but will never stop telling? Go.',
       target: 'both',
-      timer: 10,
-      drinkRule: 'No sips — just the generational analysis.',
+      drinkRule: 'The other person doesn\'t laugh? Take 1 sip.',
     },
     {
       type: 'nostalgia',
-      text: 'Quick fire: what was your most-played song on iTunes circa 2008? Both answer simultaneously. Shame-free zone.',
+      text: 'Describe your GTA San Andreas strategy in one sentence. The more chaotic the strategy, the more you drink.',
       target: 'both',
-      drinkRule: 'No sips — shame-free zone.',
-    },
-    {
-      type: 'nostalgia',
-      text: 'Describe your GTA San Andreas strategy in one sentence. The more chaotic the strategy, the more everyone drinks.',
-      target: 'both',
-      sipsOpen: true,
       drinkRule: 'Adjust sips using the buttons below.',
+      sipsOpen: true,
     },
     {
       type: 'nostalgia',
-      text: 'What\'s a core memory from a night out in your early 20s that you\'ve told about 40 times but will never stop telling?',
+      text: 'What\'s the first thing you bought with your own money as a child? Compare. Whoever bought something more objectively ridiculous drinks.',
       target: 'both',
-      drinkRule: 'No sips — this one\'s earned.',
+      drinkRule: 'More ridiculous purchase? Take 2 sips.',
     },
 
-    // WILD
+    // WILD (8)
     {
       type: 'wild',
-      text: 'The "this is fine" dog energy is real tonight. Both describe one thing in your life right now that is absolutely on fire that you\'re choosing to ignore. Whoever sounds more in denial drinks.',
+      text: 'The "this is fine" dog energy is real. Both describe one thing in your life right now that is absolutely on fire that you\'re choosing to ignore. Whoever sounds more deluded drinks.',
       target: 'both',
       drinkRule: 'Most in denial? Take 2 sips.',
     },
     {
       type: 'wild',
-      text: 'Chaotic good vs. chaotic evil: classify the other person\'s personality alignment. Give evidence. Other player must accept the verdict or drink 2.',
+      text: 'Chaotic good vs chaotic evil: classify the other person\'s alignment and give a specific example as evidence. The other player must accept the verdict or drink 2.',
       target: 'both',
       drinkRule: 'Reject the verdict? Take 2 sips.',
     },
@@ -684,261 +660,6 @@ const CARDS = {
       drinkRule: 'Least understood the assignment? Take 2 sips.',
     },
     {
-      type: 'truth',
-      text: 'What\'s a phrase that lives rent-free in your head from a past relationship? You don\'t need to explain the context. Just say it out loud.',
-      target: 'both',
-      drinkRule: 'Won\'t say it? Take 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: '{irish}: Explain the Lidl middle aisle experience to {italian} as if it\'s a sacred pilgrimage. Give it the reverence it deserves.',
-      target: 'irish',
-      drinkRule: 'Not reverent enough? {irish} takes 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: What\'s one thing about a Sunday family lunch that a therapist would find interesting? Be specific.',
-      target: 'italian',
-      drinkRule: 'Too vague? {italian} takes 2 sips.',
-    },
-    {
-      type: 'wild',
-      text: 'Both players: think of the most "touch grass immediately" opinion you\'ve seen online this week. Most unhinged answer wins a sip-skip.',
-      target: 'both',
-      drinkRule: 'Less unhinged answer? Take 1 sip.',
-    },
-    {
-      type: 'nostalgia',
-      text: 'What\'s the first thing you bought with your own money as a child? Compare notes. Whoever bought something objectively more ridiculous drinks.',
-      target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
-    },
-
-    // MINI-GAMES
-    { type: 'wild', text: 'TAP RACE! 💥 Fastest fingers win — this one\'s personal. Loser drinks 3.', target: 'both', drinkRule: 'Loser drinks 3 sips.', minigame: 'tap_race', loser_drinks: 3 },
-    { type: 'wild', text: 'QUICK DRAW 🔫 When you see DRAW — first to tap wins. Loser drinks 2.', target: 'both', drinkRule: 'Slower finger drinks 2 sips.', minigame: 'quick_draw', loser_drinks: 2 },
-  ],
-
-  // ── EXTREME ZONE (rounds spicyEnd+1 → totalRounds) ────────
-  extreme: [
-
-    // CHALLENGES
-    {
-      type: 'challenge',
-      text: 'Call a mutual friend right now. First thing they answer with determines who drinks. Hang up after 10 seconds. No context given.',
-      target: 'both',
-      timer: 10,
-      drinkRule: 'Don\'t call? Both take 3 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Both players: show each other the last voice note you sent. No skipping ahead.',
-      target: 'both',
-      drinkRule: 'Refuse to show? Take 3 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Open your most recent text thread with your mum and read the last thing you said to her out loud. Drink 1 sip for each awkward detail.',
-      target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
-    },
-    {
-      type: 'challenge',
-      text: 'Tell the other person something about tonight that you didn\'t plan to say until at least two more drinks. Say it anyway. Chicken out? Drink 4.',
-      target: 'both',
-      drinkRule: 'Chicken out? Take 4 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Write a PostSecret-style confession on your phone notes — something true, something you\'ve never told anyone. You don\'t have to show it, but you have to actually write it. Don\'t? Drink 3.',
-      target: 'both',
-      drinkRule: 'Don\'t write it? Take 3 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Both log onto Instagram. Each person must read out the last caption they posted in their best influencer voice. Most cringe drinks.',
-      target: 'both',
-      drinkRule: 'Most cringe caption? Take 2 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Describe your biggest insecurity about dating in exactly 7 words. Go.',
-      target: 'both',
-      drinkRule: 'Wrong word count or refusal? Take 3 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Send {italian} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it.',
-      target: 'irish',
-      drinkRule: 'Don\'t send it? {irish} takes 3 sips.',
-    },
-    {
-      type: 'challenge',
-      text: 'Send {irish} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it.',
-      target: 'italian',
-      drinkRule: 'Don\'t send it? {italian} takes 3 sips.',
-    },
-
-    // TRUTHS
-    {
-      type: 'truth',
-      text: 'What\'s the most "main character energy" decision you\'ve ever made — something reckless that you\'d make again?',
-      target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the most embarrassing thing you\'ve done to get someone\'s attention? Did it work?',
-      target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'When\'s the last time you genuinely cried at something and what was it? A movie counts. So does a Duolingo notification.',
-      target: 'both',
-      drinkRule: 'Won\'t say? Take 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s something you\'ve told yourself about your love life that you know is a lie?',
-      target: 'both',
-      drinkRule: 'Won\'t admit the lie? Take 3 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'If the other person texted you "we need to talk" tomorrow morning, what would your immediate assumption be — and why?',
-      target: 'both',
-      drinkRule: 'Too vague? Take 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s a version of yourself you\'ve outgrown but low-key miss?',
-      target: 'both',
-      drinkRule: 'No sips — just honesty.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the most "no thoughts, head empty" decision you\'ve made that somehow worked out?',
-      target: 'both',
-      drinkRule: 'No sips — just chaotic energy.',
-    },
-    {
-      type: 'truth',
-      text: '{italian}: What does "aperitivo hour" represent to you emotionally? This is not a small question. Answer properly.',
-      target: 'italian',
-      drinkRule: 'Answer not deep enough? {italian} takes 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: '{irish}: "Grand so" — tell me about a time you said it when nothing was even slightly grand.',
-      target: 'irish',
-      drinkRule: 'Won\'t tell it? {irish} takes 2 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s something you want from a relationship that you\'ve never actually asked for out loud?',
-      target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
-    },
-    {
-      type: 'truth',
-      text: 'Be honest: what\'s the last thing you did that was genuinely "the audacity"? No judgment zone.',
-      target: 'both',
-      drinkRule: 'Too tame? Take 1 sip and try harder.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s a "girl dinner" / "boy dinner" you\'ve had this month that you could never explain to a nutritionist?',
-      target: 'both',
-      drinkRule: 'No sips — this is a judgment-free zone.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the most "chronically online" opinion you hold that you know is slightly insane in real life?',
-      target: 'both',
-      drinkRule: 'Too normal? Take 1 sip and dig deeper.',
-    },
-    {
-      type: 'truth',
-      text: 'What\'s the thing about tonight that you\'ll still be thinking about tomorrow morning?',
-      target: 'both',
-      drinkRule: 'Dodge it? Take 3 sips.',
-    },
-
-    // VOTES
-    {
-      type: 'vote',
-      text: 'Who\'s more likely to send a paragraph text at 2am?',
-      prompt: 'More likely to send the 2am paragraph text?',
-      loser_drinks: 3,
-      target: 'both',
-    },
-    {
-      type: 'vote',
-      text: 'Who would fall first in this hypothetical relationship?',
-      prompt: 'Who falls first?',
-      loser_drinks: 2,
-      target: 'both',
-    },
-    {
-      type: 'vote',
-      text: 'Who\'s the bigger "I\'m obsessed with you" energy person?',
-      prompt: 'Bigger "I\'m obsessed with you" energy?',
-      loser_drinks: 2,
-      target: 'both',
-    },
-    {
-      type: 'vote',
-      text: 'Who would be more mortified the morning after a big night?',
-      prompt: 'More mortified the morning after?',
-      loser_drinks: 2,
-      target: 'both',
-    },
-
-    // COUPLE
-    {
-      type: 'couple',
-      text: 'Both look at each other for 10 uninterrupted seconds. No phones. No laughing it off. Then each say one honest thing.',
-      target: 'both',
-      timer: 10,
-      drinkRule: 'Can\'t hold the look? Take 2 sips.',
-    },
-    {
-      type: 'couple',
-      text: 'If tonight was a movie, what genre is it and what\'s the title? Both answer separately, then compare. Whoever\'s title is more accurate wins.',
-      target: 'both',
-      drinkRule: 'Less accurate title? Take 1 sip.',
-    },
-    {
-      type: 'couple',
-      text: 'Tell each other one thing the other person said tonight that you\'ll actually remember. Be specific.',
-      target: 'both',
-      drinkRule: 'Too vague? Take 1 sip.',
-    },
-    {
-      type: 'couple',
-      text: 'Plan the most absurdly perfect date you could imagine with this person — money no object. 3 minutes. Go.',
-      target: 'both',
-      timer: 30,
-      drinkRule: 'No sips — just dream big.',
-    },
-
-    // WILD
-    {
-      type: 'wild',
-      text: 'You both get to ask one question the other person must answer fully and honestly. No vetoing. Ask it now. Whoever gives the better answer skips their next sip.',
-      target: 'both',
-      drinkRule: 'Worse answer? Take 1 sip.',
-    },
-    {
-      type: 'wild',
-      text: 'Both of you are in your "obsessed" era right now. Admit one thing about this evening you\'re genuinely obsessed with — no irony allowed. Whoever sounds most sincere wins.',
-      target: 'both',
-      drinkRule: 'Less sincere? Take 2 sips.',
-    },
-    {
       type: 'wild',
       text: 'Rizz check: both players have 30 seconds to say the most genuinely charming thing they can think of right now. Not corny. Actually charming. The other player judges. Loser drinks.',
       target: 'both',
@@ -947,45 +668,316 @@ const CARDS = {
     },
     {
       type: 'wild',
-      text: 'Both players: pick a Vine or early meme that defined your sense of humour. Whoever\'s pick lands harder with the other person wins. Loser drinks.',
+      text: 'Both write a one-line BeReal caption for right now — this exact moment — as honestly as possible. Read them simultaneously. Most filtered answer takes 2 sips.',
+      target: 'both',
+      drinkRule: 'Most filtered? Take 2 sips.',
+    },
+    {
+      type: 'wild',
+      text: 'Explain the Lidl middle aisle experience to {italian} as if it\'s a sacred weekly pilgrimage. Give it the full cultural weight it deserves.',
+      target: 'irish',
+      drinkRule: 'Not reverent enough? {irish} takes 2 sips.',
+    },
+    {
+      type: 'wild',
+      text: 'Both: pick a Vine or early meme that defines your sense of humour. Whoever\'s pick lands harder with the other person wins. Loser drinks.',
       target: 'both',
       drinkRule: 'Didn\'t land? Take 2 sips.',
     },
     {
       type: 'wild',
-      text: 'It\'s Spotify Wrapped time. Each player names the top 3 artists the other person would have. Whoever guesses more accurately drinks less. {italian} goes first.',
+      text: 'It\'s Spotify Wrapped. Each player names the top 3 artists the other person would have. Whoever guesses more accurately — the other drinks 2.',
       target: 'both',
-      sipsOpen: true,
-      drinkRule: 'Adjust sips using the buttons below.',
+      drinkRule: 'Worse guess? Take 2 sips.',
+    },
+
+    // MINI-GAMES (2 tap_race + 2 quick_draw)
+    { type: 'wild', text: 'TAP RACE! 💥 Fastest fingers win — this one\'s personal. Loser drinks 3.', target: 'both', drinkRule: 'Loser drinks 3 sips.', minigame: 'tap_race', loser_drinks: 3 },
+    { type: 'wild', text: 'TAP RACE REMATCH! 🔥 You both know what\'s at stake. Loser drinks 3.', target: 'both', drinkRule: 'Loser drinks 3 sips.', minigame: 'tap_race', loser_drinks: 3 },
+    { type: 'wild', text: 'QUICK DRAW 🔫 Hands on the table. When you see DRAW — first to tap wins. Loser drinks 2.', target: 'both', drinkRule: 'Slower finger drinks 2 sips.', minigame: 'quick_draw', loser_drinks: 2 },
+    { type: 'wild', text: 'QUICK DRAW REMATCH 🔫 One more time. False start costs you. Loser drinks 2.', target: 'both', drinkRule: 'Slower finger drinks 2 sips.', minigame: 'quick_draw', loser_drinks: 2 },
+  ],
+
+  // ── EXTREME ZONE (rounds spicyEnd+1 → totalRounds) ────────
+  extreme: [
+
+    // CHALLENGES / DARES (12+)
+    {
+      type: 'challenge',
+      text: 'Dare: kiss the other person\'s hand. Look up while you do it. Hold eye contact for 3 full seconds. Refuse? Drink 4.',
+      target: 'both',
+      drinkRule: 'Refuse? Take 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Turn-based dare: {italian} gives {irish} a 30-second shoulder massage. Then switch. Timer on. No skipping.',
+      target: 'both',
+      timer: 30,
+      drinkRule: 'Skip your turn? Take 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Tell the other person one thing you\'ve been wanting to do to them tonight. No vague answers. No metaphors. Say it plainly. Dodge it? Drink 5.',
+      target: 'both',
+      drinkRule: 'Dodge or go vague? Take 5 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Rate the other person out of 10 — physical first, then personality. Say both numbers out loud. You cannot say the same number for both. Refuse? Drink 4.',
+      target: 'both',
+      drinkRule: 'Refuse to rate? Take 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Text your group chat right now: "I think I\'m falling for someone." No context. Screenshot and show it. Don\'t send? Drink 5.',
+      target: 'both',
+      drinkRule: 'Don\'t send? Take 5 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'What\'s the most compromising photo on your phone right now? You don\'t have to show it — but you have to describe it in detail. Refuse the description? Drink 4.',
+      target: 'both',
+      drinkRule: 'Refuse to describe? Take 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Show each other the last photo you took of yourself that you didn\'t post anywhere. Right now. No deleting.',
+      target: 'both',
+      drinkRule: 'Refuse to show? Take 3 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Open your phone camera. Take a photo of the other person right now. They get to see it immediately after. You cannot delete it tonight.',
+      target: 'both',
+      drinkRule: 'Refuse? Take 3 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {irish} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
+      target: 'italian',
+      drinkRule: 'Don\'t send it? {italian} takes 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Send {italian} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
+      target: 'irish',
+      drinkRule: 'Don\'t send it? {irish} takes 4 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Tell the other person something about tonight that you didn\'t plan to say until at least two more drinks. Say it now anyway. Chicken out? Drink 5.',
+      target: 'both',
+      drinkRule: 'Chicken out? Take 5 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Describe your biggest insecurity about dating in exactly 7 words. Count them out loud. Wrong count or refusal? Drink 3.',
+      target: 'both',
+      drinkRule: 'Wrong count or refusal? Take 3 sips.',
+    },
+    {
+      type: 'challenge',
+      text: 'Open your most recent text thread with an ex. Read the last 2 messages — yours and theirs — out loud. No editing. Refuse? Drink 4.',
+      target: 'both',
+      drinkRule: 'Refuse to read? Take 4 sips.',
+    },
+
+    // TRUTHS (14+)
+    {
+      type: 'truth',
+      text: 'What\'s the most physical thing you\'ve done on a first date? {irish} goes first. {italian} has to top it or drink 4.',
+      target: 'both',
+      drinkRule: 'Can\'t top it? Take 4 sips.',
     },
     {
       type: 'truth',
-      text: 'What\'s a version of yourself you perform for people when you first meet them that isn\'t quite the real you?',
+      text: 'What\'s your most embarrassing sexual or romantic moment? Full details. No glossing over. Dodge it? Drink 4.',
+      target: 'both',
+      drinkRule: 'Dodge it or go vague? Take 4 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What actually turns you on about the other person right now, specifically? Not a general type. Them. Right now. Refuse? Drink 4.',
+      target: 'both',
+      drinkRule: 'Refuse or go vague? Take 4 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s something you want from a relationship that you\'ve never actually asked for out loud? Say it. Dodge it? Drink 3.',
+      target: 'both',
+      drinkRule: 'Dodge it? Take 3 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'Be honest: what\'s something you\'ve told yourself about your love life that you know is a lie? Admit it now.',
+      target: 'both',
+      drinkRule: 'Won\'t admit the lie? Take 3 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the darkest secret you\'d be willing to tell tonight — right now, at this level of drunk? Say it. Dodge it? Drink 4.',
+      intensity: 'inferno',
+      target: 'both',
+      drinkRule: 'Dodge it? Take 4 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What would happen if this evening went exactly the way part of you wants it to? Say what you actually want. Don\'t hedge. Drink 5 if you won\'t.',
+      target: 'both',
+      drinkRule: 'Hedges or refuses? Take 5 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most "no thoughts, head empty" decision you\'ve made that was specifically about a person you were attracted to?',
+      target: 'both',
+      drinkRule: 'Too tame? Take 1 sip and try harder.',
+    },
+    {
+      type: 'truth',
+      text: 'If the other person texted you "we need to talk" tomorrow morning — what would your immediate gut assumption be? Be honest.',
+      target: 'both',
+      drinkRule: 'Too vague or deflecting? Take 2 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s a version of yourself you perform for people when you first meet them that isn\'t quite the real you? Describe it specifically.',
       target: 'both',
       drinkRule: 'Won\'t reveal it? Take 3 sips.',
     },
     {
-      type: 'wild',
-      text: 'Both players write a one-line BeReal caption for right now — this exact moment — as honestly as possible. Read them at the same time.',
-      target: 'both',
-      drinkRule: 'Too filtered? Take 2 sips.',
+      type: 'truth',
+      text: '{italian}: what\'s one thing about a Sunday family lunch that a therapist would find really interesting? Be specific.',
+      target: 'italian',
+      drinkRule: 'Too surface-level? {italian} takes 3 sips.',
     },
     {
       type: 'truth',
-      text: 'What would your Spotify Wrapped "Audio Aura" actually say about your emotional state this year? Uncomfortably honest answers only.',
+      text: '{irish}: "Grand so" — tell me about a time you said it when absolutely nothing was grand. What was actually going on?',
+      target: 'irish',
+      drinkRule: 'Won\'t go there? {irish} takes 3 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the thing about tonight that you\'ll still be thinking about tomorrow morning when you wake up? Answer honestly. Dodge it? Drink 4.',
+      target: 'both',
+      drinkRule: 'Dodge it? Take 4 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the last relationship deal-breaker you discovered too late? Specific story. No vague "they weren\'t right for me."',
+      target: 'both',
+      drinkRule: 'Vague answer? Take 2 sips.',
+    },
+    {
+      type: 'truth',
+      text: 'What\'s the most "the audacity" thing you\'ve ever done to or for someone you were attracted to? No regrets clause applies.',
+      target: 'both',
+      drinkRule: 'Too tame? Take 2 sips.',
+    },
+
+    // VOTES (5)
+    {
+      type: 'vote',
+      text: 'Who\'s better in bed — based purely on vibes?',
+      intensity: 'inferno',
+      prompt: 'Better in bed — vibes only?',
+      loser_drinks: 4,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who would be more mortified the morning after a big night?',
+      prompt: 'More mortified the morning after?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who would send the paragraph text at 2am explaining everything?',
+      prompt: 'Sends the 2am paragraph text?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who is giving more "I\'m completely fine, this is totally fine" energy tonight when they\'re not fine?',
+      prompt: 'Who\'s pretending to be fine?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+    {
+      type: 'vote',
+      text: 'Who is the bigger "I\'m obsessed with you" energy person in a new relationship?',
+      prompt: 'Bigger obsessive energy in relationships?',
+      loser_drinks: 3,
+      target: 'both',
+    },
+
+    // COUPLE (5)
+    {
+      type: 'couple',
+      text: 'Both look at each other for 15 uninterrupted seconds. No phones. No laughing it off. After — each say one honest thing you noticed.',
+      target: 'both',
+      timer: 15,
+      drinkRule: 'Can\'t hold the look? Take 3 sips.',
+    },
+    {
+      type: 'couple',
+      text: 'If tonight was a movie, what genre is it and what\'s the title? Both answer separately, then compare. Loser of the accuracy contest drinks.',
+      target: 'both',
+      drinkRule: 'Less accurate title? Take 2 sips.',
+    },
+    {
+      type: 'couple',
+      text: 'Without irony: tell the other person one thing you genuinely admire about them that you haven\'t said yet tonight. Then tell them one thing you find physically attractive about them right now.',
+      target: 'both',
+      drinkRule: 'Gives a vague non-answer? Take 2 sips.',
+    },
+    {
+      type: 'couple',
+      text: 'Plan the most absurdly perfect date you could imagine with this person — money completely irrelevant. 3 minutes. Go. Whoever plans the better one has their next drink paid for in sip-skips.',
+      target: 'both',
+      timer: 30,
+      drinkRule: 'Less creative date plan? Take 2 sips.',
+    },
+    {
+      type: 'couple',
+      text: 'Both ask each other one question the other must answer fully and honestly. No vetoing. No deflecting. Ask it now.',
+      target: 'both',
+      drinkRule: 'Deflects or refuses their question? Take 3 sips.',
+    },
+
+    // WILD (4)
+    {
+      type: 'wild',
+      text: 'Both of you are in your "obsessed" era. Admit one thing about this evening you\'re genuinely obsessed with — no irony allowed. Whoever sounds more sincere wins. The other takes 2 sips.',
+      target: 'both',
+      drinkRule: 'Less sincere? Take 2 sips.',
+    },
+    {
+      type: 'wild',
+      text: 'You both get to say one thing to the other person with full amnesty — no consequences, no bringing it up later. Say it. Dodge it? Drink 5.',
+      target: 'both',
+      drinkRule: 'Dodge it? Take 5 sips.',
+    },
+    {
+      type: 'wild',
+      text: 'What\'s your Spotify Wrapped "Audio Aura" for this year, actually? Not the nice version — the uncomfortable honest version of what your music says about your emotional state.',
       target: 'both',
       drinkRule: 'Not uncomfortable enough? Take 2 sips.',
     },
     {
-      type: 'couple',
-      text: 'Without irony: tell the other person one thing you genuinely admire about them that you haven\'t mentioned yet tonight.',
+      type: 'wild',
+      text: 'Both players: pick a Vine or meme that best describes what you think is happening between the two of you right now. No hiding behind irony.',
       target: 'both',
-      drinkRule: 'No sips — just pure sincerity.',
+      drinkRule: 'Hides behind irony? Take 3 sips.',
     },
 
-    // MINI-GAMES
-    { type: 'wild', text: 'STARE CONTEST 🔥 No laughing. No looking away. Longest stare wins. Loser takes 3.', target: 'both', drinkRule: 'First to look away drinks 3 sips.', minigame: 'stare', loser_drinks: 3 },
-    { type: 'wild', text: 'QUICK DRAW 🔫 Extreme edition — zero mercy. Lose? Drink 3.', target: 'both', drinkRule: 'Slower tap drinks 3 sips.', minigame: 'quick_draw', loser_drinks: 3 },
+    // MINI-GAMES (2 stare + 2 quick_draw)
+    { type: 'wild', text: 'STARE CONTEST 🔥 No laughing. No looking away. This is war now. Loser takes 3.', target: 'both', drinkRule: 'First to look away drinks 3 sips.', minigame: 'stare', loser_drinks: 3 },
+    { type: 'wild', text: 'STARE CONTEST FINAL 🔥 Last stare of the night. Make it count. Loser drinks 4.', target: 'both', drinkRule: 'First to look away drinks 4 sips.', minigame: 'stare', loser_drinks: 4 },
+    { type: 'wild', text: 'QUICK DRAW 🔫 Extreme edition. Zero mercy. No false starts. Loser drinks 3.', target: 'both', drinkRule: 'Slower tap drinks 3 sips.', minigame: 'quick_draw', loser_drinks: 3 },
+    { type: 'wild', text: 'QUICK DRAW FINALE 🔫 Last draw of the night. One shot. Loser drinks 4.', target: 'both', drinkRule: 'Slower tap drinks 4 sips.', minigame: 'quick_draw', loser_drinks: 4 },
   ],
 };
 
@@ -1051,6 +1043,7 @@ let state = {
   spicyEnd: 9,      // last spicy round (extreme = spicyEnd+1 to totalRounds)
   zone: 'warmup',   // 'warmup' | 'spicy' | 'extreme'
   roundMode: 'shared', // 'shared' | 'turns'
+  spiceLevel: 'hot',   // 'mild' | 'hot' | 'inferno'
   activeTurn: 'italian', // only relevant in 'turns' mode
   currentCard: null,
   usedWarmup: [],
@@ -1072,21 +1065,39 @@ function shuffle(arr) {
   return a;
 }
 
+// Spice level hierarchy: mild ⊂ hot ⊂ inferno
+// A card with intensity 'inferno' only shows at inferno level.
+// A card with intensity 'hot' shows at hot + inferno.
+// Cards with no intensity field always show.
+const SPICE_RANKS = { mild: 0, hot: 1, inferno: 2 };
+function cardAllowed(card) {
+  if (!card.intensity) return true; // untagged cards always show
+  return SPICE_RANKS[card.intensity] <= SPICE_RANKS[state.spiceLevel];
+}
+
 function pickCard(pool, used) {
-  const available = pool.filter((_, i) => !used.includes(i));
-  if (available.length === 0) {
-    used.length = 0;
-    return { card: pool[Math.floor(Math.random() * pool.length)], idx: 0 };
+  const allowed = pool.filter(c => cardAllowed(c));
+  const available = allowed.filter((_, i) => !used.includes(pool.indexOf(allowed[i])) );
+  // Re-do: filter by index in original pool for used tracking
+  const poolIndices = pool.map((c, i) => ({ card: c, idx: i }));
+  const allowedIndexed = poolIndices.filter(({ card }) => cardAllowed(card));
+  const availableIndexed = allowedIndexed.filter(({ idx }) => !used.includes(idx));
+
+  if (availableIndexed.length === 0) {
+    // Reset used for allowed cards only
+    const allowedIdxs = allowedIndexed.map(x => x.idx);
+    allowedIdxs.forEach(i => { const pos = used.indexOf(i); if (pos > -1) used.splice(pos, 1); });
+    const fallback = allowedIndexed[Math.floor(Math.random() * allowedIndexed.length)];
+    return fallback ? { card: fallback.card, idx: fallback.idx } : { card: pool[0], idx: 0 };
   }
-  // In turns mode, prefer 'both' and active player's target cards
-  let candidates = available;
+
+  let candidates = availableIndexed;
   if (state.roundMode === 'turns') {
-    const preferred = available.filter(c => !c.target || c.target === 'both' || c.target === state.activeTurn);
+    const preferred = availableIndexed.filter(({ card: c }) => !c.target || c.target === 'both' || c.target === state.activeTurn);
     if (preferred.length > 0) candidates = preferred;
   }
   const chosen = candidates[Math.floor(Math.random() * candidates.length)];
-  const idx = pool.indexOf(chosen);
-  return { card: chosen, idx };
+  return { card: chosen.card, idx: chosen.idx };
 }
 
 function personalize(text) {
@@ -1655,16 +1666,23 @@ function showZoneTransition(fromZone, toZone, onContinue) {
 
   overlay.classList.remove('transition-spicy', 'transition-extreme');
 
+  const spiceTag = { mild: '🌿 Mild', hot: '🌶️ Hot', inferno: '🔥 Inferno' }[state.spiceLevel] || '';
+
   if (toZone === 'spicy') {
     overlay.classList.add('transition-spicy');
     emojiEl.textContent = '🌶️';
     textEl.textContent  = 'SPICY ZONE';
-    subEl.textContent   = `Round ${state.round} — stop playing it safe. Things get personal from here.`;
+    subEl.textContent   = `Round ${state.round} — gloves off. It gets personal from here. [${spiceTag}]`;
   } else if (toZone === 'extreme') {
     overlay.classList.add('transition-extreme');
-    emojiEl.textContent = '🔥🌋🔥';
+    const infernoCopy = state.spiceLevel === 'inferno'
+      ? '🔥 INFERNO MODE ACTIVE. No filter, no mercy, no regrets.'
+      : state.spiceLevel === 'hot'
+      ? '🌋 Hot mode — things are about to get genuinely uncomfortable. In a good way.'
+      : '🌿 Mild Extreme — still spicy, just not unhinged.';
+    emojiEl.textContent = state.spiceLevel === 'inferno' ? '🔥🌋🔥' : '🔥';
     textEl.textContent  = 'EXTREME ZONE';
-    subEl.textContent   = `No filter. No mercy. No regrets. The final stretch starts now.`;
+    subEl.textContent   = infernoCopy;
   }
 
   overlay.classList.remove('hidden');
@@ -1836,8 +1854,11 @@ function readSettings() {
   state.warmupEnd = Math.min(state.warmupEnd, state.spicyEnd - 1);
   state.spicyEnd  = Math.min(state.spicyEnd, state.totalRounds - 1);
 
-  const roundModeEl = document.querySelector('.mode-pill.active');
+  const roundModeEl = document.querySelector('.mode-pill:not(.spice-pill).active');
   state.roundMode = roundModeEl ? roundModeEl.dataset.mode : 'shared';
+
+  const spicePillEl = document.querySelector('.spice-pill.active');
+  state.spiceLevel = spicePillEl ? spicePillEl.dataset.spice : 'hot';
 }
 
 // ============================================================
@@ -1857,9 +1878,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── ROUND MODE PILLS ──────────────────────────────────────
-  document.querySelectorAll('.mode-pill').forEach(pill => {
+  document.querySelectorAll('.mode-pill:not(.spice-pill)').forEach(pill => {
     pill.addEventListener('click', () => {
-      document.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.mode-pill:not(.spice-pill)').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // ── SPICE LEVEL PILLS ─────────────────────────────────────
+  document.querySelectorAll('.spice-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.spice-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
     });
   });
