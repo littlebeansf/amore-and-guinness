@@ -13,33 +13,33 @@ const CARDS = {
     // CHALLENGES (12+)
     {
       type: 'challenge',
-      text: 'Show {italian} your camera roll from exactly 3 years ago today. No curating. Whatever\'s there, is there. {italian} reacts out loud.',
+      text: 'Show {player1} your camera roll from exactly 3 years ago today. No curating. Whatever\'s there, is there. {player1} reacts out loud.',
       target: 'irish',
-      drinkRule: 'Anything embarrassing? {irish} takes 1 sip per cringeworthy photo.',
+      drinkRule: 'Anything embarrassing? {player2} takes 1 sip per cringeworthy photo.',
       sipsOpen: true,
     },
     {
       type: 'challenge',
-      text: 'Do your best impression of {irish}\'s accent right now. {irish} rates it 1–10. Under 5 means you drink.',
+      text: 'Do your best impression of {player2}\'s accent right now. {player2} rates it 1–10. Under 5 means you drink.',
       target: 'italian',
-      drinkRule: 'Under 5/10? {italian} takes 2 sips.',
+      drinkRule: 'Under 5/10? {player1} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Show {irish} your camera roll from exactly 3 years ago today. No curating. {irish} picks the most chaotic photo and describes it.',
+      text: 'Show {player2} your camera roll from exactly 3 years ago today. No curating. {player2} picks the most chaotic photo and describes it.',
       target: 'italian',
-      drinkRule: 'Anything embarrassing? {italian} takes 1 sip per cringeworthy photo.',
+      drinkRule: 'Anything embarrassing? {player1} takes 1 sip per cringeworthy photo.',
       sipsOpen: true,
     },
     {
       type: 'challenge',
-      text: 'Do your best impression of {italian}\'s accent. {italian} rates it 1–10. Under 5? You\'re drinking.',
+      text: 'Do your best impression of {player1}\'s accent. {player1} rates it 1–10. Under 5? You\'re drinking.',
       target: 'irish',
-      drinkRule: 'Under 5/10? {irish} takes 2 sips.',
+      drinkRule: 'Under 5/10? {player2} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Name 5 Italian pasta shapes in 10 seconds. {italian} is judge. Wrong or blanked? 1 sip per miss.',
+      text: 'Name 5 types of pasta in 10 seconds. {player1} is judge. Wrong or blanked? 1 sip per miss.',
       target: 'irish',
       timer: 10,
       drinkRule: '1 sip per missed pasta. Max 5 sips.',
@@ -47,9 +47,9 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Say "ah sure look, it\'ll be grand" with full Irish conviction. {italian} scores it 1–10. Under 6? Drink.',
+      text: 'Pick an accent neither of you has and say "ah sure look, it\'ll be grand" with full conviction. {player1} scores it 1–10. Under 6? Drink.',
       target: 'italian',
-      drinkRule: 'Under 6/10? {italian} takes 2 sips.',
+      drinkRule: 'Under 6/10? {player1} takes 2 sips.',
     },
     {
       type: 'challenge',
@@ -59,22 +59,22 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Explain what a Centra meal deal is to {italian} as if it\'s a Michelin-starred dining experience. Give it the reverence it deserves.',
+      text: 'Explain what a Centra meal deal is to {player1} as if it\'s a Michelin-starred dining experience. Give it the reverence it deserves.',
       target: 'irish',
-      drinkRule: 'Not reverent enough? {irish} takes 2 sips.',
+      drinkRule: 'Not reverent enough? {player2} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'Order a Negroni Sbagliato in the most theatrical Italian you can manage. {italian} judges pronunciation. One butchered syllable = 1 sip.',
+      text: 'Order a Negroni Sbagliato with maximum theatricality. {player1} judges the performance. Looks unimpressed? 1 sip per cringe.',
       target: 'irish',
       drinkRule: 'Adjust sips using the buttons below.',
       sipsOpen: true,
     },
     {
       type: 'challenge',
-      text: 'In your best Italian hand-gesture vocabulary, express "I have absolutely no idea what you\'re talking about." {irish} must guess the meaning.',
+      text: 'Express "I have absolutely no idea what you\'re talking about" using only hand gestures — no words, no sounds. {player2} must guess the meaning.',
       target: 'italian',
-      drinkRule: '{irish} guesses wrong? {irish} takes 2 sips.',
+      drinkRule: '{player2} guesses wrong? {player2} takes 2 sips.',
     },
     {
       type: 'challenge',
@@ -90,10 +90,10 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: '{italian}: describe "dolce far niente" to {irish} in 30 seconds without using the word "relax". Fail? Drink.',
+      text: '{player1}: describe "dolce far niente" to {player2} in 30 seconds without using the word "relax". Fail? Drink.',
       target: 'italian',
       timer: 30,
-      drinkRule: 'Used "relax"? {italian} takes 2 sips.',
+      drinkRule: 'Used "relax"? {player1} takes 2 sips.',
     },
     {
       type: 'challenge',
@@ -111,15 +111,15 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: which Italian stereotype about yourself is 100% accurate? Own it out loud.',
+      text: '{player1}: which stereotype about your personality is 100% accurate? Own it out loud — no hedging.',
       target: 'italian',
-      drinkRule: 'Won\'t own it? {italian} takes 2 sips.',
+      drinkRule: 'Won\'t own it? {player1} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: which Irish stereotype about yourself is embarrassingly true? "The tea thing" counts but you still have to say it.',
+      text: '{player2}: which personality stereotype about yourself is embarrassingly true? Saying you\'re "the chaotic one" counts, but say it out loud.',
       target: 'irish',
-      drinkRule: 'Won\'t confirm it? {irish} takes 2 sips.',
+      drinkRule: 'Won\'t confirm it? {player2} takes 2 sips.',
     },
     {
       type: 'truth',
@@ -141,9 +141,9 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: have you ever pretended to be from Spain to avoid explaining Italy? Judgment-free zone. Completely.',
+      text: '{player1}: have you ever pretended to be from somewhere else to avoid explaining where you\'re actually from? Judgment-free zone.',
       target: 'italian',
-      drinkRule: 'Refuse to answer? {italian} takes 2 sips.',
+      drinkRule: 'Refuse to answer? {player1} takes 2 sips.',
     },
     {
       type: 'truth',
@@ -229,7 +229,7 @@ const CARDS = {
     },
     {
       type: 'couple',
-      text: 'Quick debate: pizza vs. fish and chips. 60 seconds each to make the case. Most convincing argument wins a sip-skip.',
+      text: 'Quick debate: pizza vs. tacos. 60 seconds each to make the case. Most convincing argument wins a sip-skip.',
       target: 'both',
       timer: 30,
       drinkRule: 'Less convincing argument? Take 1 sip.',
@@ -314,10 +314,10 @@ const CARDS = {
     },
     {
       type: 'wild',
-      text: '{italian} describes their ideal Sunday using only Italian words. {irish} must try to understand from context alone. No translating for 45 seconds.',
+      text: '{player1} describes their ideal Sunday using only words from a language they\'ve never studied. {player2} must interpret from body language alone. No translating for 45 seconds.',
       target: 'both',
       timer: 45,
-      drinkRule: 'Completely lost? {irish} takes 1 sip.',
+      drinkRule: 'Completely lost? {player2} takes 1 sip.',
     },
     {
       type: 'wild',
@@ -333,7 +333,7 @@ const CARDS = {
     },
 
     // MINI-GAMES (2 tap_race + 2 stare)
-    { type: 'wild', text: 'TAP RACE! 👆 Fastest fingers in Italy vs Ireland. First to 20 taps wins. Loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
+    { type: 'wild', text: 'TAP RACE! 👆 Fastest fingers at the table. First to 20 taps wins. Loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
     { type: 'wild', text: 'TAP RACE ROUND 2! 💥 Rematch energy. Same rules. Different vibes. Loser drinks 2.', target: 'both', drinkRule: 'Loser drinks 2 sips.', minigame: 'tap_race', loser_drinks: 2 },
     { type: 'wild', text: 'STARE CONTEST 👀 Hold eye contact. No smiling. No looking away. First to blink — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
     { type: 'wild', text: 'STARE CONTEST ROUND 2 👁️ Second attempt. More tension now. First to break — drinks 2.', target: 'both', drinkRule: 'First to look away drinks 2 sips.', minigame: 'stare', loser_drinks: 2 },
@@ -351,15 +351,15 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'What\'s the most attractive thing {italian} has done tonight without realising it? Be specific. "Just being themselves" is not an answer.',
+      text: 'What\'s the most attractive thing {player1} has done tonight without realising it? Be specific. "Just being themselves" is not an answer.',
       target: 'irish',
-      drinkRule: 'Vague answer or cop-out? {irish} takes 2 sips.',
+      drinkRule: 'Vague answer or cop-out? {player2} takes 2 sips.',
     },
     {
       type: 'challenge',
-      text: 'What\'s the most attractive thing {irish} has done tonight without realising it? Be specific. No hiding behind irony.',
+      text: 'What\'s the most attractive thing {player2} has done tonight without realising it? Be specific. No hiding behind irony.',
       target: 'italian',
-      drinkRule: 'Vague answer or cop-out? {italian} takes 2 sips.',
+      drinkRule: 'Vague answer or cop-out? {player1} takes 2 sips.',
     },
     {
       type: 'challenge',
@@ -369,15 +369,15 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Send {irish} a voice note right now saying something you\'d normally only think. Record it before you second-guess it. Don\'t send? Drink 3.',
+      text: 'Send {player2} a voice note right now saying something you\'d normally only think. Record it before you second-guess it. Don\'t send? Drink 3.',
       target: 'italian',
-      drinkRule: 'Don\'t send it? {italian} takes 3 sips.',
+      drinkRule: 'Don\'t send it? {player1} takes 3 sips.',
     },
     {
       type: 'challenge',
-      text: 'Send {italian} a voice note right now saying something you\'d normally only think. Record it. Don\'t pre-plan it. Don\'t send? Drink 3.',
+      text: 'Send {player1} a voice note right now saying something you\'d normally only think. Record it. Don\'t pre-plan it. Don\'t send? Drink 3.',
       target: 'irish',
-      drinkRule: 'Don\'t send it? {irish} takes 3 sips.',
+      drinkRule: 'Don\'t send it? {player2} takes 3 sips.',
     },
     {
       type: 'challenge',
@@ -394,9 +394,9 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Compliment {irish} in the most dramatic Italian telenovela style imaginable. Use your hands. Use pauses. Use the drama. {irish} must fan themselves if convinced.',
+      text: 'Compliment {player2} in the most dramatic telenovela style imaginable. Use your hands. Use pauses. Use the drama. {player2} must fan themselves if convinced.',
       target: 'italian',
-      drinkRule: '{irish} not convinced? {italian} takes 2 sips.',
+      drinkRule: '{player2} not convinced? {player1} takes 2 sips.',
     },
     {
       type: 'challenge',
@@ -476,15 +476,15 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: What\'s something about Irish culture you actually find genuinely attractive — not just tolerable? Be specific.',
+      text: '{player1}: What\'s something about {player2}\'s background or upbringing you actually find genuinely interesting? Be specific.',
       target: 'italian',
-      drinkRule: 'Diplomatic non-answer? {italian} takes 2 sips.',
+      drinkRule: 'Diplomatic non-answer? {player1} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: What\'s something about Italian culture that makes you want to move there immediately? Not "the food." Something specific.',
+      text: '{player2}: What\'s something about {player1}\'s background or culture that you genuinely find attractive? Not "they seem nice." Something specific.',
       target: 'irish',
-      drinkRule: 'Says "the food"? {irish} takes 2 sips and tries again.',
+      drinkRule: 'Says "the food"? {player2} takes 2 sips and tries again.',
     },
     {
       type: 'truth',
@@ -500,15 +500,15 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: what does Sunday family lunch actually represent for you emotionally? This is not a small question. Answer properly.',
+      text: '{player1}: what does Sunday family lunch actually represent for you emotionally? This is not a small question. Answer properly.',
       target: 'italian',
-      drinkRule: 'Surface-level answer? {italian} takes 2 sips.',
+      drinkRule: 'Surface-level answer? {player1} takes 2 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: what\'s a phrase your mammy says that has leaked into your everyday vocabulary against your will? Say it. In her voice.',
+      text: '{player2}: what\'s a phrase your mum or dad says that has leaked into your vocabulary against your will? Say it. In their voice.',
       target: 'irish',
-      drinkRule: 'Refuses the mammy voice? {irish} takes 2 sips.',
+      drinkRule: 'Refuses the impression? {player2} takes 2 sips.',
     },
     {
       type: 'truth',
@@ -604,9 +604,9 @@ const CARDS = {
     // NOSTALGIA (6)
     {
       type: 'nostalgia',
-      text: '{italian}: What Italian early-2000s banger do you still have saved on your phone — but "ironically"? Name it. Confess or drink 2.',
+      text: '{player1}: What embarrassing early-2000s song do you still have saved on your phone — but "ironically"? Name it. Confess or drink 2.',
       target: 'italian',
-      drinkRule: 'Won\'t confess? {italian} takes 2 sips.',
+      drinkRule: 'Won\'t confess? {player1} takes 2 sips.',
     },
     {
       type: 'nostalgia',
@@ -674,9 +674,9 @@ const CARDS = {
     },
     {
       type: 'wild',
-      text: 'Explain the Lidl middle aisle experience to {italian} as if it\'s a sacred weekly pilgrimage. Give it the full cultural weight it deserves.',
+      text: 'Explain the Lidl middle aisle experience to {player1} as if it\'s a sacred weekly pilgrimage. Give it the full cultural weight it deserves.',
       target: 'irish',
-      drinkRule: 'Not reverent enough? {irish} takes 2 sips.',
+      drinkRule: 'Not reverent enough? {player2} takes 2 sips.',
     },
     {
       type: 'wild',
@@ -710,7 +710,7 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Turn-based dare: {italian} gives {irish} a 30-second shoulder massage. Then switch. Timer on. No skipping.',
+      text: 'Turn-based dare: {player1} gives {player2} a 30-second shoulder massage. Then switch. Timer on. No skipping.',
       target: 'both',
       timer: 30,
       drinkRule: 'Skip your turn? Take 4 sips.',
@@ -753,15 +753,15 @@ const CARDS = {
     },
     {
       type: 'challenge',
-      text: 'Send {irish} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
+      text: 'Send {player2} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
       target: 'italian',
-      drinkRule: 'Don\'t send it? {italian} takes 4 sips.',
+      drinkRule: 'Don\'t send it? {player1} takes 4 sips.',
     },
     {
       type: 'challenge',
-      text: 'Send {italian} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
+      text: 'Send {player1} a voice note right now saying exactly: "I\'ve been thinking about you." Send it before you second-guess it. Don\'t send? Drink 4.',
       target: 'irish',
-      drinkRule: 'Don\'t send it? {irish} takes 4 sips.',
+      drinkRule: 'Don\'t send it? {player2} takes 4 sips.',
     },
     {
       type: 'challenge',
@@ -785,7 +785,7 @@ const CARDS = {
     // TRUTHS (14+)
     {
       type: 'truth',
-      text: 'What\'s the most physical thing you\'ve done on a first date? {irish} goes first. {italian} has to top it or drink 4.',
+      text: 'What\'s the most physical thing you\'ve done on a first date? {player2} goes first. {player1} has to top it or drink 4.',
       target: 'both',
       drinkRule: 'Can\'t top it? Take 4 sips.',
     },
@@ -846,15 +846,15 @@ const CARDS = {
     },
     {
       type: 'truth',
-      text: '{italian}: what\'s one thing about a Sunday family lunch that a therapist would find really interesting? Be specific.',
+      text: '{player1}: what\'s one thing about a Sunday family lunch that a therapist would find really interesting? Be specific.',
       target: 'italian',
-      drinkRule: 'Too surface-level? {italian} takes 3 sips.',
+      drinkRule: 'Too surface-level? {player1} takes 3 sips.',
     },
     {
       type: 'truth',
-      text: '{irish}: "Grand so" — tell me about a time you said it when absolutely nothing was grand. What was actually going on?',
+      text: '{player2}: "Grand so" — tell me about a time you said it when absolutely nothing was grand. What was actually going on?',
       target: 'irish',
-      drinkRule: 'Won\'t go there? {irish} takes 3 sips.',
+      drinkRule: 'Won\'t go there? {player2} takes 3 sips.',
     },
     {
       type: 'truth',
@@ -1033,8 +1033,8 @@ const CAT_CONFIG = {
 // STATE
 // ============================================================
 let state = {
-  italianName: 'Romeo',
-  irishName: 'Aoife',
+  italianName: 'Player 1',
+  irishName: 'Player 2',
   italianSips: 0,
   irishSips: 0,
   round: 1,
@@ -1102,8 +1102,8 @@ function pickCard(pool, used) {
 
 function personalize(text) {
   return text
-    .replace(/{italian}/g, state.italianName)
-    .replace(/{irish}/g, state.irishName);
+    .replace(/{player1}/g, state.italianName)
+    .replace(/{player2}/g, state.irishName);
 }
 
 function getZone(round) {
@@ -1936,8 +1936,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('startBtn').addEventListener('click', () => {
     const it = document.getElementById('italianName').value.trim();
     const ir = document.getElementById('irishName').value.trim();
-    state.italianName = it || 'Romeo';
-    state.irishName   = ir || 'Aoife';
+    state.italianName = it || 'Player 1';
+    state.irishName   = ir || 'Player 2';
     showScreen('rulesScreen');
   });
 
